@@ -214,6 +214,15 @@ nav a:hover {
   text-align: left;
 }
 
+/* Styling for the main about section image */
+.about-main-image {
+  max-width: 100%; /* Ensures the image is responsive and doesn't overflow */
+  height: auto; /* Maintains aspect ratio */
+  border-radius: var(--border-radius); /* Applies a subtle rounded corner */
+  box-shadow: var(--shadow-md); /* Adds a nice shadow for depth */
+  margin: 2rem auto; /* Centers the image horizontally and adds vertical spacing */
+  display: block; /* Ensures margin: auto works for centering */
+}
 /* Stats Bar Section */
 .stats-bar {
   background: var(--bg-light);
