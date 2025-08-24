@@ -96,6 +96,8 @@ nav a:hover {
 /* Dropdown Menu */
 .dropdown {
   position: relative; /* Needed for absolute positioning of dropdown-content */
+  padding-bottom: 0.5rem; /* Creates a hoverable area to bridge the gap to the dropdown menu */
+  margin-bottom: -0.5rem; /* Prevents the padding from affecting the layout of sibling elements */
 }
 
 .dropdown-content {
