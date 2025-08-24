@@ -67,6 +67,11 @@ header {
   box-shadow: var(--shadow-sm);
 }
 
+.branding {
+  /* This will apply to the new 'a' tag to make it behave like the old div */
+  text-decoration: none;
+}
+
 header h1 {
   margin: 0;
   font-size: 1.7rem;
