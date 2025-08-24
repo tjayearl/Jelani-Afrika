@@ -846,18 +846,41 @@ footer {
   margin-bottom: 0.5rem;
 }
 
-.social-links a {
-  margin-right: 1rem;
-}
-
-.footer-column ul a, .social-links a {
+.footer-column ul a {
   opacity: 0.8;
   transition: opacity 0.2s ease-in-out;
 }
 
-.footer-column ul a:hover, .social-links a:hover {
+.footer-column ul a:hover {
   opacity: 1;
   text-decoration: underline;
+}
+
+.social-links a {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  line-height: 42px; /* Vertically center icon */
+  text-align: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+  margin-right: 0.5rem;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.social-links a:hover {
+  background: var(--bg-white);
+  color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+.footer-emergency-call {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text-light);
+  margin-top: 0.5rem;
 }
 
 .footer-bottom {
