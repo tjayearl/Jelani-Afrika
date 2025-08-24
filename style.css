@@ -235,25 +235,68 @@ nav a .fa-caret-down {
   margin: 0 auto 1.5rem;
 }
 
+/* --- Button Styles --- */
 .btn {
-  display: inline-block;
+  display: inline-flex; /* Use flex for easy icon alignment */
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem; /* Space between text and icon */
   background: var(--primary-color);
   color: var(--text-light);
-  padding: 0.75rem 1.5rem;
+  padding: 0.8rem 1.6rem; /* Medium-large size */
   margin-top: 1rem;
   border-radius: var(--border-radius);
   font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  border: 2px solid var(--primary-color);
+  transition: all 0.2s ease-in-out;
+  font-size: 1rem;
+  text-decoration: none; /* Ensure links styled as buttons don't have underlines */
 }
 
-.btn:hover {
+/* Primary Button Hover: Invert colors */
+.btn:hover, .btn-primary:hover {
+  background: var(--bg-light);
+  color: var(--primary-color);
+  border-color: var(--bg-light);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+/* Active state for click effect */
+.btn:active {
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+/* Secondary Button Style */
+.btn-secondary {
+  background: var(--bg-light);
+  color: var(--primary-color);
+  border-color: var(--border-color);
+}
+.btn-secondary:hover {
   background: var(--primary-hover);
-  transform: translateY(-2px);
+  color: var(--text-light);
+  border-color: var(--primary-hover);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+/* Outline/Ghost Button Style */
+.btn-outline {
+  background: transparent;
+  color: var(--primary-color);
+}
+
+.btn-outline:hover {
+  background: var(--primary-color);
+  color: var(--text-light);
 }
 
 .btn-hero {
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
   margin-top: 1.5rem;
 }
 
@@ -347,16 +390,13 @@ nav a .fa-caret-down {
   flex-grow: 1; /* Pushes button to the bottom */
 }
 
+/* Card Button - Use outline style */
 .btn-card {
-  background-color: var(--bg-light);
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
   align-self: flex-start;
   margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   font-size: 0.9rem;
 }
-
 
 .card:hover {
   transform: translateY(-5px);
@@ -470,16 +510,17 @@ nav a .fa-caret-down {
 }
 
 .cta .btn {
-  background: var(--bg-white);
+  /* Use a style that contrasts with the section's primary background */
+  background: var(--text-light);
   color: var(--primary-color);
+  border-color: var(--text-light);
   font-weight: bold;
-  padding: 0.75rem 1.5rem;
   font-size: 1.1rem;
 }
 
 .cta .btn:hover {
   background: var(--bg-light);
-  transform: translateY(-2px);
+  border-color: var(--bg-light);
 }
 
 /* FAQ Section */
@@ -562,7 +603,6 @@ nav a .fa-caret-down {
 
 .contact-form button {
   align-self: flex-start; /* Align button to the left */
-  border: none;
   cursor: pointer;
 }
 
