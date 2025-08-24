@@ -750,6 +750,71 @@ nav a .fa-caret-down {
   box-sizing: border-box;
 }
 
+/* Service Detail Page Styles */
+.service-detail {
+  padding: var(--spacing-lg) 0;
+  background: var(--bg-white);
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.service-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.service-icon-large {
+  font-size: 4rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.service-header h1 {
+  font-size: 2.8rem;
+  margin: 0;
+}
+
+.service-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.service-content h2 {
+  font-size: 1.8rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 0.5rem;
+}
+
+.service-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.service-content ul li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.service-content ul li::before {
+  content: '\f058'; /* Font Awesome check-circle icon */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  top: 2px;
+  color: var(--primary-color);
+}
+
+.service-content .btn {
+  margin-top: 2rem;
+  display: inline-block;
+}
+
 @media (max-width: 768px) {
   .contact-container {
     flex-direction: column;
