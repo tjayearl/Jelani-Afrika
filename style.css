@@ -308,13 +308,31 @@ nav a .fa-caret-down {
 
 .card {
   background: var(--bg-white);
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: var(--border-radius);
   flex: 1;
-  min-width: 200px;
+  min-width: 250px;
   box-shadow: var(--shadow-sm);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
+
+.card p {
+  flex-grow: 1; /* Pushes button to the bottom */
+}
+
+.btn-card {
+  background-color: var(--bg-light);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  align-self: flex-start;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
 
 .card:hover {
   transform: translateY(-5px);
@@ -524,6 +542,16 @@ nav a .fa-caret-down {
   cursor: pointer;
 }
 
+.contact-details a {
+  color: var(--primary-color);
+}
+
+.btn-call {
+  display: none; /* Hidden by default, shown on mobile */
+}
+
+
+
 /* Login/Register Page Styles */
 .auth-container {
   padding: var(--spacing-lg) 1rem;
@@ -607,6 +635,65 @@ nav a .fa-caret-down {
   text-decoration: underline;
 }
 
+/* Claims Page Styles */
+.claims-container {
+  padding: var(--spacing-lg) 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 80vh;
+  background: var(--bg-light);
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.claim-form-wrapper {
+  background: var(--bg-white);
+  padding: 2rem 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 700px; /* Wider for a more detailed form */
+}
+
+.claim-form-wrapper h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+#claim-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns */
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+#claim-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+#claim-form label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+#claim-form .full-width {
+  grid-column: 1 / -1; /* Span both columns */
+}
+
+#claim-form input,
+#claim-form select,
+#claim-form textarea {
+  width: 100%;
+  padding: 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
 @media (max-width: 768px) {
   .contact-container {
     flex-direction: column;
@@ -616,6 +703,17 @@ nav a .fa-caret-down {
   .hero h2 { font-size: 2.5rem; }
   .hero p { font-size: 1.1rem; }
   .cta h2 { font-size: 1.7rem; }
+
+  .btn-call {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  #claim-form {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
 
   /* Dropdown mobile adjustments */
   .dropdown-content {
