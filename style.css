@@ -89,11 +89,27 @@ nav ul {
   padding: 0;
 }
 
-nav a:hover {
-  text-decoration: underline;
+nav a {
+  position: relative;
+  padding-bottom: 5px; /* Give space for the underline */
 }
 
-/* Dropdown Menu */
+/* Animated underline for nav items */
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--text-light);
+  transition: width 0.3s ease;
+}
+
+nav a:hover {
+  text-decoration: none; /* Replaced with animated underline */
+}
+
 .dropdown {
   position: relative; /* Needed for absolute positioning of dropdown-content */
   padding-bottom: 0.5rem; /* Creates a hoverable area to bridge the gap to the dropdown menu */
@@ -129,6 +145,12 @@ nav a:hover {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+/* Trigger the underline on hover or if the link is active */
+nav a:hover::after,
+nav li.active > a::after {
+  width: 100%;
 }
 
 /* Add a caret down icon */
