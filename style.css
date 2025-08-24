@@ -679,13 +679,67 @@ nav a .fa-caret-down {
   display: block;
 }
 
-#claim-form .full-width {
-  grid-column: 1 / -1; /* Span both columns */
+#claim-form .full-width,
+#payment-form .full-width {
+  grid-column: 1 / -1; /* Span both columns on grid forms */
 }
 
 #claim-form input,
 #claim-form select,
 #claim-form textarea {
+  width: 100%;
+  padding: 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+/* Payment Page Styles */
+.payment-container {
+  padding: var(--spacing-lg) 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 80vh;
+  background: var(--bg-light);
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.payment-form-wrapper {
+  background: var(--bg-white);
+  padding: 2rem 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 600px; /* A bit narrower than claims form */
+}
+
+.payment-form-wrapper h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+#payment-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+#payment-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+#payment-form label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+#payment-form input {
   width: 100%;
   padding: 0.85rem;
   border: 1px solid var(--border-color);
@@ -711,7 +765,8 @@ nav a .fa-caret-down {
     margin-top: 1rem;
   }
 
-  #claim-form {
+  #claim-form,
+  #payment-form {
     grid-template-columns: 1fr; /* Single column on mobile */
   }
 
