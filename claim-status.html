@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Life Insurance - Jelani-Africa Insurance Agency</title>
+  <title>Claim Status - Jelani-Africa Insurance Agency</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="style.css">
 </head>
@@ -20,7 +20,7 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About Us</a></li>
-        <li class="dropdown active">
+        <li class="dropdown">
           <a href="index.html#services">Products / Services <i class="fas fa-caret-down"></i></a>
           <div class="dropdown-content">
             <a href="health-insurance.html">Health Insurance</a>
@@ -31,7 +31,7 @@
           </div>
         </li>
         <li><a href="index.html#contact">Get a Quote</a></li>
-        <li><a href="claims.html">Claims</a></li>
+        <li class="active"><a href="claims.html">Claims</a></li>
         <li><a href="payment.html">Pay Online</a></li>
         <li><a href="index.html#faq">FAQs</a></li>
         <li><a href="index.html#contact">Contact Us</a></li>
@@ -41,28 +41,20 @@
   </header>
 
   <main>
-    <section class="service-detail">
-      <div class="container">
-        <div class="service-header">
-          <i class="fas fa-users service-icon-large"></i>
-          <h1>Life Insurance</h1>
-        </div>
-        <div class="service-content">
-          <p>Secure your family's financial future with a life insurance policy from Jelani-Africa. Life insurance provides a crucial safety net, ensuring that your loved ones are taken care of financially in your absence. It's one of the most important decisions you can make to protect the people who matter most.</p>
-          
-          <h2>Key Coverage Areas</h2>
-          <ul>
-            <li><strong>Term Life Insurance:</strong> Affordable coverage for a specific period, ideal for covering mortgages and education costs.</li>
-            <li><strong>Whole Life Insurance:</strong> Lifelong protection with a cash value component that grows over time.</li>
-            <li><strong>Critical Illness Cover:</strong> Provides a lump-sum payment if you are diagnosed with a serious illness.</li>
-            <li><strong>Disability Cover:</strong> Replaces a portion of your income if you are unable to work due to an injury or illness.</li>
-            <li><strong>Last Expense Cover:</strong> Ensures that funeral costs and other final expenses are covered without burdening your family.</li>
-          </ul>
+    <section id="claim-status-section" class="claim-status-container">
+      <div class="claim-status-wrapper">
+        <h2>Check Your Claim Status</h2>
+        <p>Enter your Claim Reference ID below to see the latest updates.</p>
+        <form id="claim-status-form">
+          <div class="form-group full-width">
+            <label for="claim-id">Claim Reference ID</label>
+            <input type="text" id="claim-id" name="claim_id" required placeholder="e.g., CLM-12345">
+          </div>
+          <button type="submit" class="btn btn-full-width">Track Status</button>
+        </form>
 
-          <h2>Why Choose Our Life Insurance?</h2>
-          <p>Our experienced advisors will help you understand your options and choose a plan that provides the right level of protection for your family's needs. We offer compassionate service and a commitment to honoring our promises, giving you and your loved ones lasting peace of mind.</p>
-
-          <a href="index.html?quote=life" class="btn">Get a Life Insurance Quote</a>
+        <div id="claim-status-result" style="display: none;">
+          <!-- Status will be injected here by JavaScript -->
         </div>
       </div>
     </section>
@@ -104,5 +96,6 @@
       <p>&copy; 2025 Jelani-Africa Insurance Agency. All rights reserved.</p>
     </div>
   </footer>
+  <script src="claim-status.js"></script>
 </body>
 </html>

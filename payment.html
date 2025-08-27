@@ -41,37 +41,160 @@
   </header>
 
   <main>
-    <section id="payment-section" class="payment-container">
-      <div class="payment-form-wrapper">
-        <h2>Secure Online Payment</h2>
-        <p style="text-align: center; margin-top: -1.5rem; margin-bottom: 2rem;">Pay for your policy renewal or new quote quickly and securely.</p>
-        <form id="payment-form" action="#" method="POST">
-          <div class="form-group full-width">
-            <label for="policy-number">Policy or Quote Number</label>
-            <input type="text" id="policy-number" name="policy_number" required placeholder="e.g., POL123456789">
+    <section id="payment-section" class="payment-wizard-container">
+      <div class="payment-wizard-wrapper">
+        <h2>Pay Your Premium Online</h2>
+        <div id="payment-wizard">
+          <div class="wizard-progress">
+            <div class="progress-bar" style="width: 0%;"></div>
           </div>
-          <div class="form-group full-width">
-            <label for="payment-amount">Payment Amount (KES)</label>
-            <input type="number" id="payment-amount" name="payment_amount" required placeholder="e.g., 5000">
+
+          <!-- Step 1: Enter Policy Number -->
+          <div class="payment-step active" data-step="1">
+            <h3>Step 1: Identify Your Policy</h3>
+            <p>Please enter your Policy Number or Client ID to proceed.</p>
+            <div class="form-group full-width">
+              <label for="policy-number">Policy / Client ID</label>
+              <input type="text" id="policy-number" name="policy_number" required placeholder="e.g., POL123456789">
+            </div>
+            <div class="wizard-nav single-button">
+              <button class="btn payment-next">Continue <i class="fas fa-arrow-right"></i></button>
+            </div>
           </div>
-          <div class="form-group full-width">
-            <label for="card-name">Name on Card</label>
-            <input type="text" id="card-name" name="card_name" required>
+
+          <!-- Step 2: Confirm Amount -->
+          <div class="payment-step" data-step="2">
+            <h3>Step 2: Confirm Amount Due</h3>
+            <p>Below is the outstanding amount for policy #<strong id="display-policy-number">...</strong></p>
+            <div class="amount-due">KES 12,500.00</div>
+            <div class="wizard-nav">
+              <button class="btn btn-outline payment-prev"><i class="fas fa-arrow-left"></i> Back</button>
+              <button class="btn payment-next">Confirm & Proceed <i class="fas fa-arrow-right"></i></button>
+            </div>
           </div>
-          <div class="form-group full-width">
-            <label for="card-number">Card Number</label>
-            <input type="text" id="card-number" name="card_number" required placeholder="•••• •••• •••• ••••">
+
+          <!-- Step 3: Choose Payment Method -->
+          <div class="payment-step" data-step="3">
+            <h3>Step 3: Choose Payment Method</h3>
+            <div class="trust-seals">
+              <div class="security-notice">
+                <i class="fas fa-lock"></i> Your payment is 100% secure with SSL encryption.
+              </div>
+              <div class="trusted-logos">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" title="Visa">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" title="Mastercard">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/M-PESA_LOGO-01.svg/1280px-M-PESA_LOGO-01.svg.png" alt="M-Pesa" title="M-Pesa">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Airtel_logo.svg/1024px-Airtel_logo.svg.png" alt="Airtel Money" title="Airtel Money">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" title="PayPal">
+              </div>
+            </div>
+            <div class="options-grid payment-options">
+              <label><input type="radio" name="payment_method" value="card" checked><span><i class="fas fa-credit-card"></i> Card</span></label>
+              <label><input type="radio" name="payment_method" value="mpesa"><span><i class="fas fa-mobile-screen-button"></i> M-Pesa</span></label>
+              <label><input type="radio" name="payment_method" value="airtel"><span><i class="fas fa-mobile-alt"></i> Airtel</span></label>
+              <label><input type="radio" name="payment_method" value="bank"><span><i class="fas fa-building-columns"></i> Bank Transfer</span></label>
+              <label><input type="radio" name="payment_method" value="paypal"><span><i class="fab fa-paypal"></i> PayPal</span></label>
+            </div>
+            <!-- Card Details Form -->
+            <div id="card-details" class="payment-details-form">
+              <div class="form-group full-width">
+                <label for="card-name">Name on Card</label>
+                <input type="text" id="card-name" name="card_name" required>
+              </div>
+              <div class="form-group full-width">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" name="card_number" required placeholder="•••• •••• •••• ••••">
+              </div>
+              <div class="form-group">
+                <label for="expiry-date">Expiry Date</label>
+                <input type="text" id="expiry-date" name="expiry_date" required placeholder="MM / YY">
+              </div>
+              <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" required placeholder="•••">
+              </div>
+              <!-- This should only be shown to logged-in users -->
+              <div class="form-group full-width">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="save-card" name="save_card">
+                  <label for="save-card">Save this card for future payments</label>
+                </div>
+              </div>
+            </div>
+            <!-- M-Pesa Instructions -->
+            <div id="mpesa-details" class="payment-instructions" style="display: none;">
+              <h4>M-Pesa Payment Instructions</h4>
+              <ol>
+                <li>Go to your M-Pesa Menu</li>
+                <li>Select "Lipa na M-Pesa"</li>
+                <li>Select "Pay Bill"</li>
+                <li>Enter Business No: <strong>123456</strong></li>
+                <li>Enter Account No: <strong>Your Policy Number</strong></li>
+                <li>Enter the amount: <strong>KES 12,500.00</strong></li>
+                <li>Enter your M-Pesa PIN and confirm</li>
+              </ol>
+            </div>
+            <!-- Airtel Money Instructions -->
+            <div id="airtel-details" class="payment-instructions" style="display: none;">
+              <h4>Airtel Money Instructions</h4>
+              <ol>
+                <li>Go to your Airtel Money Menu</li>
+                <li>Select "Make Payments" &rarr; "Paybill"</li>
+                <li>Enter Business Name: <strong>JELANIAFRICA</strong></li>
+                <li>Enter the amount: <strong>KES 12,500.00</strong></li>
+                <li>Enter your Airtel Money PIN and confirm</li>
+              </ol>
+            </div>
+            <!-- Bank Transfer Instructions -->
+            <div id="bank-details" class="payment-instructions" style="display: none;">
+              <h4>Bank Transfer Details</h4>
+              <p>Please use your Policy Number as the payment reference.</p>
+              <ul>
+                <li><strong>Bank Name:</strong> Equity Bank</li>
+                <li><strong>Account Name:</strong> Jelani-Africa Insurance Agency</li>
+                <li><strong>Account Number:</strong> 0123456789012</li>
+                <li><strong>Branch:</strong> Nairobi</li>
+              </ul>
+            </div>
+            <!-- PayPal Instructions -->
+            <div id="paypal-details" class="payment-instructions" style="display: none;">
+              <h4>Proceed with PayPal</h4>
+              <p>You will be redirected to the PayPal website to complete your payment securely.</p>
+            </div>
+            <div class="wizard-nav">
+              <button class="btn btn-outline payment-prev"><i class="fas fa-arrow-left"></i> Back</button>
+              <button class="btn payment-next">Pay Now <i class="fas fa-lock"></i></button>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="expiry-date">Expiry Date</label>
-            <input type="text" id="expiry-date" name="expiry_date" required placeholder="MM / YY">
+
+          <!-- Step 4: Confirmation -->
+          <div class="payment-step" data-step="4">
+            <h3><i class="fas fa-check-circle" style="color: #28a745;"></i> Payment Successful!</h3>
+            <p>A digital receipt has been sent to your registered email address. A summary is shown below.</p>
+            <div class="receipt">
+              <h4>Payment Summary</h4>
+              <p><strong>Policy Number:</strong> <span id="receipt-policy-number">...</span></p>
+              <p><strong>Amount Paid:</strong> KES 12,500.00</p>
+              <p><strong>Transaction ID:</strong> 1A2B3C4D5E</p>
+              <p><strong>Date:</strong> <span id="receipt-date"></span></p>
+            </div>
+            <div class="reminder-setup">
+              <h4>Get Payment Reminders</h4>
+              <p>Avoid late fees. We can send you a reminder a week before your next premium is due.</p>
+              <div class="checkbox-group">
+                <input type="checkbox" id="payment-reminder" name="payment_reminder">
+                <label for="payment-reminder">Yes, send me an email reminder</label>
+              </div>
+            </div>
+            <div class="wizard-nav">
+              <a href="index.html" class="btn btn-outline">Back to Home</a>
+              <button class="btn" onclick="window.print()"><i class="fas fa-print"></i> Print Receipt</button>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="cvv">CVV</label>
-            <input type="text" id="cvv" name="cvv" required placeholder="•••">
-          </div>
-          <button type="submit" class="btn full-width">Pay Now <i class="fas fa-credit-card"></i></button>
-        </form>
+        </div>
+      </div>
+      <div class="payment-help">
+        <a href="index.html#contact">Having trouble paying? Contact Support</a>
       </div>
     </section>
   </main>
@@ -112,5 +235,6 @@
       <p>&copy; 2025 Jelani-Africa Insurance Agency. All rights reserved.</p>
     </div>
   </footer>
+  <script src="payment-wizard.js"></script>
 </body>
 </html>

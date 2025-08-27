@@ -41,50 +41,169 @@
   </header>
 
   <main>
-    <section id="claims-section" class="claims-container">
-      <div class="claim-form-wrapper">
+    <section id="claims-section" class="claim-wizard-container">
+      <div class="claim-wizard-wrapper">
         <h2>File a Claim</h2>
-        <p style="text-align: center; margin-top: -1.5rem; margin-bottom: 2rem;">Please provide the following details. Our team will review your submission and contact you shortly.</p>
-        <form id="claim-form" action="#" method="POST">
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required>
+        <form id="claim-form" action="#" method="POST" novalidate>
+          <div class="wizard-progress">
+            <div class="progress-bar" style="width: 0%;"></div>
           </div>
-          <div class="form-group">
-            <label for="policy-number">Policy Number</label>
-            <input type="text" id="policy-number" name="policy_number" required>
+
+          <!-- Step 1: Policy Info -->
+          <div class="claim-step active" data-step="1">
+            <h3>Step 1: Policyholder Information</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="policy-number">Policy Number</label>
+                <input type="text" id="policy-number" name="policy_number" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+              </div>
+            </div>
+            <div class="wizard-nav single-button">
+              <div class="nav-button-group">
+                <button type="button" class="btn btn-secondary claim-save">Save & Continue Later</button>
+                <button type="button" class="btn claim-next">Next: Incident Details <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required>
+
+          <!-- Step 2: Incident Details -->
+          <div class="claim-step" data-step="2">
+            <h3>Step 2: Incident Details</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="incident-date">Date of Incident</label>
+                <input type="date" id="incident-date" name="incident_date" required>
+              </div>
+              <div class="form-group">
+                <label for="claim-type">Type of Claim</label>
+                <select id="claim-type" name="claim_type" required>
+                  <option value="">-- Please select --</option>
+                  <option value="Health">Health Insurance</option>
+                  <option value="Car">Car Insurance</option>
+                  <option value="Life">Life Insurance</option>
+                  <option value="Home">Home Insurance</option>
+                  <option value="Business">Business Insurance</option>
+                </select>
+              </div>
+              <div class="form-group full-width">
+                <label for="description">Description of Incident</label>
+                <textarea id="description" name="description" rows="5" required></textarea>
+                <small>Please provide as much detail as possible to speed up your claim.</small>
+              </div>
+              <div class="form-group full-width">
+                <label for="claim-amount">Estimated Claim Amount (KES, if applicable)</label>
+                <input type="number" id="claim-amount" name="claim_amount" placeholder="e.g., 15000">
+              </div>
+            </div>
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-outline claim-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+              <div class="nav-button-group">
+                <button type="button" class="btn btn-secondary claim-save">Save & Continue Later</button>
+                <button type="button" class="btn claim-next">Next: Upload Evidence <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" required>
+
+          <!-- Step 3: Upload Evidence -->
+          <div class="claim-step" data-step="3">
+            <h3>Step 3: Upload Supporting Documents</h3>
+            <p>Please upload any relevant files like photos, receipts, medical reports, or police reports. This will help speed up your claim.</p>
+            <div class="form-group full-width">
+              <div class="file-upload-wrapper">
+                <input type="file" id="claim-files" name="claim_files" class="file-input" multiple>
+                <button type="button" class="btn-file-upload" tabindex="-1"><i class="fas fa-paperclip"></i> Choose Files</button>
+                <span class="file-name">No files chosen</span>
+              </div>
+              <small>Upload clear photos of any damage, receipts, or relevant reports if available.</small>
+            </div>
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-outline claim-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+              <div class="nav-button-group">
+                <button type="button" class="btn btn-secondary claim-save">Save & Continue Later</button>
+                <button type="button" class="btn claim-next">Next: Review & Submit <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="incident-date">Date of Incident</label>
-            <input type="date" id="incident-date" name="incident_date" required>
+
+          <!-- Step 4: Review & Submit -->
+          <div class="claim-step" data-step="4">
+            <h3>Step 4: Review and Submit</h3>
+            <p>Please review your information carefully before submitting.</p>
+            <div class="review-summary">
+              <h4>Policyholder Info</h4>
+              <dl>
+                <dt>Full Name:</dt><dd id="review-name"></dd>
+                <dt>Policy Number:</dt><dd id="review-policy-number"></dd>
+                <dt>Email:</dt><dd id="review-email"></dd>
+                <dt>Phone:</dt><dd id="review-phone"></dd>
+              </dl>
+              <h4>Incident Details</h4>
+              <dl>
+                <dt>Date of Incident:</dt><dd id="review-incident-date"></dd>
+                <dt>Claim Type:</dt><dd id="review-claim-type"></dd>
+                <dt>Claim Amount:</dt><dd id="review-claim-amount"></dd>
+                <dt>Description:</dt><dd id="review-description"></dd>
+                <dt>Files Uploaded:</dt><dd id="review-files"></dd>
+              </dl>
+            </div>
+            <div class="form-group full-width" style="margin-top: 2rem;">
+              <div class="preferred-contact">
+                <p>Preferred Contact Method:</p>
+                <div class="radio-group">
+                  <label><input type="radio" name="contact_method" value="email" checked> Email</label>
+                  <label><input type="radio" name="contact_method" value="phone"> Phone</label>
+                </div>
+              </div>
+            </div>
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-outline claim-prev"><i class="fas fa-arrow-left"></i> Previous</button>
+              <button type="submit" class="btn">Submit Claim <i class="fas fa-paper-plane"></i></button>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="claim-type">Type of Claim</label>
-            <select id="claim-type" name="claim_type" required>
-              <option value="">-- Please select --</option>
-              <option value="health">Health Insurance</option>
-              <option value="car">Car Insurance</option>
-              <option value="life">Life Insurance</option>
-              <option value="home">Home Insurance</option>
-              <option value="business">Business Insurance</option>
-            </select>
-          </div>
-          <div class="form-group full-width">
-            <label for="description">Description of Incident</label>
-            <textarea id="description" name="description" rows="6" required></textarea>
-          </div>
-          <button type="submit" class="btn full-width">Submit Claim <i class="fas fa-paper-plane"></i></button>
         </form>
+        <div id="claim-success-message" style="display: none;">
+          <h3>Your claim has been received.</h3>
+          <p>Our team will contact you within 48 hours. An email confirmation with your claim reference number has been sent to your registered email address.</p>
+          <a href="index.html" class="btn">Back to Home</a>
+        </div>
+      </div>
+      <div class="claim-help-sidebar">
+        <h4>Need Help?</h4>
+        <p>If you have any questions or need immediate assistance with your claim, please contact us.</p>
+        <ul>
+          <li><i class="fas fa-phone"></i> <strong>Claims Hotline:</strong> <a href="tel:+254700123456">+254 700 123 456</a></li>
+          <li><i class="fas fa-envelope"></i> <strong>Email Support:</strong> <a href="mailto:claims@jelani-africa.com">claims@jelani-africa.com</a></li>
+          <li><i class="fas fa-tasks"></i> <strong>Track a Claim:</strong> <a href="claim-status.html">Check Your Claim Status</a></li>
+          <li><i class="fas fa-question-circle"></i> <strong>Claims FAQ:</strong> <a href="index.html#faq">Frequently Asked Questions</a></li>
+        </ul>
       </div>
     </section>
+    <!-- Resume Session Modal -->
+    <div id="resume-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-content">
+        <h3>Welcome Back!</h3>
+        <p>We found a saved claim application. Would you like to continue where you left off?</p>
+        <div class="wizard-nav">
+          <button id="discard-session" class="btn btn-outline">Start New</button>
+          <button id="resume-session" class="btn">Yes, Continue</button>
+        </div>
+      </div>
+    </div>
+    <a href="https://wa.me/254700123456?text=I%20need%20help%20with%20my%20claim." class="whatsapp-fab" target="_blank" aria-label="Chat on WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
   </main>
 
   <!-- Footer -->
@@ -123,5 +242,6 @@
       <p>&copy; 2025 Jelani-Africa Insurance Agency. All rights reserved.</p>
     </div>
   </footer>
+  <script src="claims-form.js"></script>
 </body>
 </html>
