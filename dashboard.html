@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claim Status - Jelani-Africa Insurance Agency</title>
+  <title>My Dashboard - Jelani-Africa Insurance Agency</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="style.css">
 </head>
@@ -31,30 +31,71 @@
           </div>
         </li>
         <li><a href="index.html#contact">Get a Quote</a></li>
-        <li class="active"><a href="claims.html">Claims</a></li>
+        <li><a href="claims.html">Claims</a></li>
         <li><a href="payment.html">Pay Online</a></li>
         <li><a href="index.html#faq">FAQs</a></li>
         <li><a href="index.html#contact">Contact Us</a></li>
-        <li><a href="login.html">Login / Sign Up</a></li>
+        <li><a href="login.html">Logout</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <section id="claim-status-section" class="claim-status-container">
-      <div class="claim-status-wrapper">
-        <h2>Check Your Claim Status</h2>
-        <p>Enter your Claim Reference ID below to see the latest updates.</p>
-        <form id="claim-status-form">
-          <div class="form-group full-width">
-            <label for="claim-id">Claim Reference ID</label>
-            <input type="text" id="claim-id" name="claim_id" required placeholder="e.g., CLM-12345">
-          </div>
-          <button type="submit" class="btn btn-full-width">Track Status</button>
-        </form>
+    <section class="dashboard-container">
+      <div class="dashboard-header">
+        <h1>Welcome, David!</h1>
+        <p>Here's a summary of your account.</p>
+      </div>
 
-        <div id="claim-status-result" style="display: none;">
-          <!-- Status will be injected here by JavaScript -->
+      <!-- Special welcome for new users -->
+      <div id="new-user-welcome" class="dashboard-card welcome-guide" style="display: none;">
+        <h2>Get Started with Jelani-Africa</h2>
+        <p>Your account is set up! Here are the next steps to get fully protected:</p>
+        <div class="welcome-steps">
+          <a href="#" class="btn">Link Your Policy</a>
+          <a href="payment.html" class="btn">Make a Payment</a>
+          <a href="claims.html" class="btn">File a Claim</a>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- My Policies Card -->
+        <div class="dashboard-card">
+          <h3><i class="fas fa-file-invoice"></i> My Policies</h3>
+          <div class="policy-item">
+            <p><strong>Car Insurance:</strong> KCD 123X</p>
+            <p><strong>Status:</strong> <span class="status-active">Active</span></p>
+          </div>
+          <div class="policy-item">
+            <p><strong>Health Insurance:</strong> Family Plan</p>
+            <p><strong>Status:</strong> <span class="status-active">Active</span></p>
+          </div>
+          <a href="#" class="btn btn-outline">View All Policies</a>
+        </div>
+
+        <!-- My Claims Card -->
+        <div class="dashboard-card">
+          <h3><i class="fas fa-tasks"></i> My Claims</h3>
+          <div class="claim-item">
+            <p><strong>Claim ID:</strong> CLM-12345</p>
+            <p><strong>Status:</strong> <span class="status-review">Under Review</span></p>
+          </div>
+          <a href="claim-status.html" class="btn btn-outline">Track a Claim</a>
+        </div>
+
+        <!-- Quick Actions Card -->
+        <div class="dashboard-card">
+          <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+          <a href="payment.html" class="dashboard-action">Make a Payment</a>
+          <a href="claims.html" class="dashboard-action">File a New Claim</a>
+          <a href="index.html#contact" class="dashboard-action">Get a New Quote</a>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="dashboard-card">
+          <h3><i class="fas fa-user-edit"></i> My Profile</h3>
+          <p>Keep your contact information up to date.</p>
+          <a href="#" class="btn btn-outline">Update Profile</a>
         </div>
       </div>
     </section>
@@ -96,7 +137,8 @@
       <p>&copy; 2025 Jelani-Africa Insurance Agency. All rights reserved.</p>
     </div>
   </footer>
-  <script src="claim-status.js"></script>
+
+  <script src="dashboard.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

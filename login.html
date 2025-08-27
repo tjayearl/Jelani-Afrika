@@ -51,10 +51,22 @@
         <!-- Login Form -->
         <form id="login-form" class="auth-form active" action="#" method="POST">
           <h2>Login to Your Account</h2>
-          <input type="email" name="email" placeholder="Your Email" required>
+          <input type="email" name="email" placeholder="Email or Username" required>
+          <div class="auth-error" style="display: none;"></div>
           <input type="password" name="password" placeholder="Password" required>
-          <a href="#" class="forgot-password">Forgot Password?</a>
+          <div class="form-options">
+            <div class="checkbox-group">
+              <input type="checkbox" id="remember-me" name="remember_me">
+              <label for="remember-me">Remember Me</label>
+            </div>
+            <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+          </div>
           <button type="submit" class="btn">Login <i class="fas fa-right-to-bracket"></i></button>
+          <div class="social-login-divider"><span>OR</span></div>
+          <div class="social-login-buttons">
+            <button type="button" class="btn-social google"><i class="fab fa-google"></i> Continue with Google</button>
+            <button type="button" class="btn-social facebook"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
+          </div>
         </form>
 
         <!-- Registration Form -->
@@ -62,10 +74,36 @@
           <h2>Create a New Account</h2>
           <input type="text" name="name" placeholder="Full Name" required>
           <input type="email" name="email" placeholder="Your Email" required>
-          <input type="password" name="password" placeholder="Create Password" required>
+          <div class="auth-error" style="display: none;"></div>
+          <input type="tel" name="phone" placeholder="Phone Number (Optional)">
+          <input type="password" id="register-password" name="password" placeholder="Create Password" required>
+          <div class="password-strength">
+            <div class="strength-bar"></div>
+            <span class="strength-text"></span>
+          </div>
           <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+          <div class="checkbox-group terms-agreement">
+            <input type="checkbox" id="terms-agree" name="terms_agree" required>
+            <label for="terms-agree">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a> & <a href="privacy.html" target="_blank">Privacy Policy</a></label>
+          </div>
           <button type="submit" class="btn">Register <i class="fas fa-user-plus"></i></button>
+          <div class="social-login-divider"><span>OR</span></div>
+          <div class="social-login-buttons">
+            <button type="button" class="btn-social google"><i class="fab fa-google"></i> Continue with Google</button>
+            <button type="button" class="btn-social facebook"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
+          </div>
         </form>
+
+        <!-- 2FA Form -->
+        <form id="2fa-form" class="auth-form" action="#" method="POST">
+          <h2>Two-Factor Authentication</h2>
+          <p class="auth-info">A code has been sent to your email. Please enter it below to complete your login.</p>
+          <input type="text" name="2fa_code" placeholder="6-Digit Code" required maxlength="6" inputmode="numeric" pattern="[0-9]*">
+          <div class="auth-error" style="display: none;"></div>
+          <button type="submit" class="btn">Verify Code</button>
+        </form>
+
+        <p class="privacy-assurance"><i class="fas fa-lock"></i> We value your privacy. Your data is protected and never shared.</p>
       </div>
     </section>
   </main>
@@ -108,5 +146,6 @@
   </footer>
 
   <script src="auth-toggle.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
