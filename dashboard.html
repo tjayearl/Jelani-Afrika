@@ -41,64 +41,137 @@
   </header>
 
   <main>
-    <section class="dashboard-container">
-      <div class="dashboard-header">
-        <h1>Welcome, David!</h1>
-        <p>Here's a summary of your account.</p>
-      </div>
+    <div class="dashboard-layout">
+      <aside class="dashboard-sidebar">
+        <nav class="sidebar-nav">
+          <ul>
+            <li class="active"><a href="#" data-section="home"><i class="fas fa-home"></i><span>Home</span></a></li>
+            <li><a href="#" data-section="policies"><i class="fas fa-file-invoice"></i><span>Policies</span></a></li>
+            <li><a href="#" data-section="claims"><i class="fas fa-tasks"></i><span>Claims</span></a></li>
+            <li><a href="#" data-section="payments"><i class="fas fa-wallet"></i><span>Payments</span></a></li>
+            <li><a href="#" data-section="profile"><i class="fas fa-user-cog"></i><span>Profile</span></a></li>
+            <li><a href="#" data-section="support"><i class="fas fa-headset"></i><span>Support</span></a></li>
+          </ul>
+        </nav>
+      </aside>
 
-      <!-- Special welcome for new users -->
-      <div id="new-user-welcome" class="dashboard-card welcome-guide" style="display: none;">
-        <h2>Get Started with Jelani-Africa</h2>
-        <p>Your account is set up! Here are the next steps to get fully protected:</p>
-        <div class="welcome-steps">
-          <a href="#" class="btn">Link Your Policy</a>
-          <a href="payment.html" class="btn">Make a Payment</a>
-          <a href="claims.html" class="btn">File a Claim</a>
-        </div>
-      </div>
-
-      <div class="dashboard-grid">
-        <!-- My Policies Card -->
-        <div class="dashboard-card">
-          <h3><i class="fas fa-file-invoice"></i> My Policies</h3>
-          <div class="policy-item">
-            <p><strong>Car Insurance:</strong> KCD 123X</p>
-            <p><strong>Status:</strong> <span class="status-active">Active</span></p>
+      <section class="dashboard-main-content">
+        <!-- Home Section -->
+        <div id="dashboard-home" class="dashboard-section active">
+          <div class="dashboard-header">
+            <div class="profile-avatar">D</div>
+            <div class="welcome-text">
+              <h1>Welcome back, David!</h1>
+              <p>Here's a summary of your account. <span class="last-login">Last login: Aug 27, 2025</span></p>
+            </div>
           </div>
-          <div class="policy-item">
-            <p><strong>Health Insurance:</strong> Family Plan</p>
-            <p><strong>Status:</strong> <span class="status-active">Active</span></p>
+          <div class="dashboard-overview">
+            <div class="overview-card">
+              <i class="fas fa-file-shield"></i>
+              <div class="overview-card-info">
+                <span class="overview-card-number">2</span>
+                <span class="overview-card-label">Active Policies</span>
+              </div>
+            </div>
+            <div class="overview-card">
+              <i class="fas fa-tasks"></i>
+              <div class="overview-card-info">
+                <span class="overview-card-number">1</span>
+                <span class="overview-card-label">Pending Claims</span>
+              </div>
+            </div>
+            <div class="overview-card">
+              <i class="fas fa-wallet"></i>
+              <div class="overview-card-info">
+                <span class="overview-card-number">KES 5,000</span>
+                <span class="overview-card-label">Due Sept 15</span>
+              </div>
+            </div>
+            <div class="overview-card">
+              <i class="fas fa-headset"></i>
+              <div class="overview-card-info">
+                <span class="overview-card-number">0</span>
+                <span class="overview-card-label">Support Tickets</span>
+              </div>
+            </div>
           </div>
-          <a href="#" class="btn btn-outline">View All Policies</a>
-        </div>
-
-        <!-- My Claims Card -->
-        <div class="dashboard-card">
-          <h3><i class="fas fa-tasks"></i> My Claims</h3>
-          <div class="claim-item">
-            <p><strong>Claim ID:</strong> CLM-12345</p>
-            <p><strong>Status:</strong> <span class="status-review">Under Review</span></p>
+          <div class="dashboard-card">
+            <h3><i class="fas fa-bell"></i> Notifications</h3>
+            <div class="notification-item">
+              <p>Your motor policy <strong>JEL-CAR-98765</strong> expires in 10 days.</p>
+              <a href="payment.html" class="btn btn-sm">Renew Now</a>
+            </div>
           </div>
-          <a href="claim-status.html" class="btn btn-outline">Track a Claim</a>
         </div>
 
-        <!-- Quick Actions Card -->
-        <div class="dashboard-card">
-          <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
-          <a href="payment.html" class="dashboard-action">Make a Payment</a>
-          <a href="claims.html" class="dashboard-action">File a New Claim</a>
-          <a href="index.html#contact" class="dashboard-action">Get a New Quote</a>
+        <!-- Policies Section -->
+        <div id="dashboard-policies" class="dashboard-section">
+          <h2>My Policies</h2>
+          <div class="dashboard-card">
+            <div class="policy-item-detailed">
+              <div class="policy-info">
+                <h4>Car Insurance (KCD 123X)</h4>
+                <p><strong>Policy No:</strong> JEL-CAR-98765 | <strong>Coverage:</strong> Comprehensive | <strong>Expires:</strong> Dec 31, 2025</p>
+              </div>
+              <div class="policy-actions">
+                <a href="#" class="btn btn-sm btn-outline">View</a>
+                <a href="#" class="btn btn-sm">Renew</a>
+                <a href="#" class="btn btn-sm btn-outline"><i class="fas fa-download"></i> PDF</a>
+              </div>
+            </div>
+            <div class="policy-item-detailed">
+              <div class="policy-info">
+                <h4>Health Insurance (Family Plan)</h4>
+                <p><strong>Policy No:</strong> JEL-HLT-11223 | <strong>Coverage:</strong> Inpatient & Outpatient | <strong>Expires:</strong> Oct 31, 2025</p>
+              </div>
+              <div class="policy-actions">
+                <a href="#" class="btn btn-sm btn-outline">View</a>
+                <a href="#" class="btn btn-sm">Renew</a>
+                <a href="#" class="btn btn-sm btn-outline"><i class="fas fa-download"></i> PDF</a>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Profile Card -->
-        <div class="dashboard-card">
-          <h3><i class="fas fa-user-edit"></i> My Profile</h3>
-          <p>Keep your contact information up to date.</p>
-          <a href="#" class="btn btn-outline">Update Profile</a>
+        <!-- Claims Section -->
+        <div id="dashboard-claims" class="dashboard-section">
+          <h2>Claims Center</h2>
+          <div class="dashboard-card">
+            <p>Review your past claims or start a new one.</p>
+            <a href="claims.html" class="btn btn-full-width">File a New Claim</a>
+            <a href="claim-status.html" class="dashboard-link">View Past Claims &rarr;</a>
+          </div>
         </div>
-      </div>
-    </section>
+
+        <!-- Payments Section -->
+        <div id="dashboard-payments" class="dashboard-section">
+          <h2>Payments</h2>
+          <div class="dashboard-card">
+            <p>View your payment history or pay your premium.</p>
+            <a href="payment.html" class="btn btn-full-width">Pay Premium</a>
+            <a href="#" class="dashboard-link">View Payment History &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div id="dashboard-profile" class="dashboard-section">
+          <h2>Profile & Settings</h2>
+          <div class="dashboard-card">
+            <p>Update your personal information and preferences.</p>
+            <a href="#" class="btn btn-full-width btn-outline">Update My Profile</a>
+          </div>
+        </div>
+
+        <!-- Support Section -->
+        <div id="dashboard-support" class="dashboard-section">
+          <h2>Support & Help</h2>
+          <div class="dashboard-card">
+            <p>Find answers to your questions or contact our team.</p>
+            <a href="index.html#contact" class="btn btn-full-width btn-outline">Contact Support</a>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
   <!-- Footer -->
