@@ -281,20 +281,6 @@ nav a .fa-caret-down {
   border-color: var(--border-color);
 }
 .btn-secondary:hover {
-  background: var(--primary-hover);
-  color: var(--text-light);
-  border-color: var(--primary-hover);
-  transform: scale(1.05);
-  box-shadow: var(--shadow-md);
-}
-
-/* Secondary Button Style */
-.btn-secondary {
-  background: var(--bg-light);
-  color: var(--primary-color);
-  border-color: var(--border-color);
-}
-.btn-secondary:hover {
   background: #e2e6ea; /* Slightly darker light bg */
   color: var(--primary-color);
   border-color: #dae0e5;
@@ -354,6 +340,100 @@ nav a .fa-caret-down {
   box-shadow: var(--shadow-md); /* Adds a nice shadow for depth */
   margin: 2rem auto; /* Centers the image horizontally and adds vertical spacing */
   display: block; /* Ensures margin: auto works for centering */
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+.about-image-content img {
+  width: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  position: sticky; /* Makes the image stick within its container on scroll */
+  top: 100px; /* Offset from the top */
+}
+
+.btn-about-cta {
+  font-size: 1.2rem;
+  padding: 1rem 2.5rem;
+}
+
+.mission-statement {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #555;
+  max-width: 800px;
+  margin: 1rem auto 2rem auto;
+  border-left: 4px solid var(--primary-color);
+  padding-left: 1.5rem;
+  text-align: left;
+}
+
+.core-values {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.core-values h3 {
+  margin-bottom: 2rem;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+}
+
+.value-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.value-item i {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  background: var(--bg-light);
+  padding: 1rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 40px; /* Vertically center icon */
+  text-align: center;
+  box-sizing: content-box;
+}
+
+.value-item span {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.about-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  text-align: center;
+  margin: 3rem 0;
+  padding: 1.5rem;
+  background: var(--bg-light);
+  border-radius: var(--border-radius);
+}
+
+.about-stats-grid .stat-item h3 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.about-stats-grid .stat-item p {
+  margin: 0.25rem 0 0 0;
+  color: #666;
 }
 /* Stats Bar Section */
 .stats-bar {
@@ -503,99 +583,6 @@ nav a .fa-caret-down {
   font-weight: bold;
   color: var(--primary-color);
   margin-top: 0.5rem;
-}
-
-.journey-timeline {
-  margin-top: 4rem;
-  width: 100%;
-  text-align: center;
-}
-
-.journey-timeline h3 {
-  font-size: 2rem;
-  margin-bottom: 3rem;
-}
-
-.timeline-container {
-  position: relative;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* The vertical line */
-.timeline-container::after {
-  content: '';
-  position: absolute;
-  width: 4px;
-  background-color: var(--primary-color);
-  opacity: 0.3;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  margin-left: -2px;
-}
-
-.timeline-item {
-  padding: 10px 40px;
-  position: relative;
-  background-color: inherit;
-  width: 50%;
-}
-
-/* The circle on the timeline */
-.timeline-dot {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: white;
-  border: 4px solid var(--primary-color);
-  top: 25px;
-  border-radius: 50%;
-  z-index: 1;
-}
-
-/* Place the container to the left */
-.timeline-item:nth-child(odd) {
-  left: 0;
-  text-align: right;
-  padding-right: 60px;
-}
-
-/* Place the container to the right */
-.timeline-item:nth-child(even) {
-  left: 50%;
-  text-align: left;
-  padding-left: 60px;
-}
-
-/* Fix the circle for left containers */
-.timeline-item:nth-child(odd) .timeline-dot {
-  right: -10px;
-}
-
-/* Fix the circle for right containers */
-.timeline-item:nth-child(even) .timeline-dot {
-  left: -10px;
-}
-
-.timeline-year {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-}
-
-.timeline-content {
-  padding: 1rem 1.5rem;
-  background-color: var(--bg-white);
-  position: relative;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-sm);
-}
-
-.timeline-content h4 {
-  margin-top: 0;
-  color: var(--text-dark);
 }
 .testimonials {
   margin-top: 2rem;
@@ -2010,26 +1997,6 @@ nav a .fa-caret-down {
     top: 0;
   }
 
-  .timeline-container::after {
-    left: 20px;
-  }
-
-  .timeline-item {
-    width: 100%;
-    padding-left: 60px;
-    padding-right: 15px;
-  }
-
-  .timeline-item:nth-child(odd),
-  .timeline-item:nth-child(even) {
-    left: 0;
-    text-align: left;
-  }
-
-  .timeline-dot, .timeline-item:nth-child(odd) .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { /* Adjusted for mobile alignment */
-    left: 12px;
-  }
-
   .status-timeline {
     flex-direction: column;
     align-items: flex-start;
@@ -2051,6 +2018,16 @@ nav a .fa-caret-down {
     flex: none;
     width: 100%;
   }
+
+  .about-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-image-content { display: none; } /* Hide image on mobile to save space and focus on text */
 
   .status-dot { margin: 0; }
 }
