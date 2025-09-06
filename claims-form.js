@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // 🚨 Enforce login before anything else happens on this page.
+  protectPage();
+
   const claimForm = document.getElementById('claim-form');
   if (!claimForm) return; // Only run on the claims page
 
@@ -161,8 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
           successMessage.style.display = 'block';
           localStorage.removeItem(STORAGE_KEY); // Clear saved data on successful submission
         } else {
-          const errorMessage = Object.values(result.data).flat().join(' ');
-          alert(`Submission failed: ${errorMessage || 'Please check your form and try again.'}`);
+          // The apiCall function in script.js will show the error message automatically.
         }
       } catch (error) {
         alert('An error occurred during submission. Please try again.');

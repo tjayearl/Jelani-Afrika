@@ -105,23 +105,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const password = loginForm.querySelector('[name="password"]').value;
       const button = loginForm.querySelector('button[type="submit"]');
       button.disabled = true;
-      button.innerHTML = 'Logging in... <i class="fas fa-spinner fa-spin"></i>';
 
       try {
         const result = await loginUser(email, password);
         if (result.ok) {
-          // On successful password, show 2FA form
           loginForm.classList.remove('active');
           twoFaForm.classList.add('active');
           formToggle.style.display = 'none'; // Hide tabs during 2FA
-        } else {
-          displayError(loginForm, result.data.detail || 'Invalid credentials. Please try again.');
-        }
+        } 
+        // The apiCall function in script.js will automatically show an error message.
       } catch (error) {
-        displayError(loginForm, 'An error occurred. Please try again later.');
+        // This catch block is for unexpected JS errors, not API errors.
       } finally {
         button.disabled = false;
-        button.innerHTML = 'Login <i class="fas fa-right-to-bracket"></i>';
       }
     });
   }
@@ -142,23 +138,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const userData = Object.fromEntries(formData.entries());
       const button = registerForm.querySelector('button[type="submit"]');
       button.disabled = true;
-      button.innerHTML = 'Registering... <i class="fas fa-spinner fa-spin"></i>';
 
       try {
         const result = await registerUser(userData);
         if (result.ok) {
-          // On successful registration, redirect to login page with a success message
+          showMessage('Registration successful! Please log in.', 'success');
           window.location.href = 'login.html?registered=true';
-        } else {
-          // This assumes errorData is an object where keys are field names
-          const errorMessage = Object.values(result.data).flat().join(' ');
-          displayError(registerForm, errorMessage || 'Registration failed. Please try again.');
-        }
+        } 
+        // The apiCall function will show the error message.
       } catch (error) {
-        displayError(registerForm, 'An error occurred. Please try again later.');
+        // Unexpected JS error
       } finally {
         button.disabled = false;
-        button.innerHTML = 'Register <i class="fas fa-user-plus"></i>';
       }
     });
   }
@@ -169,16 +160,18 @@ document.addEventListener('DOMContentLoaded', () => {
       hideError(twoFaForm);
       const code = twoFaForm.querySelector('[name="2fa_code"]').value;
       const email = loginForm.querySelector('[name="email"]').value; // Get email from login form
+      const button = twoFaForm.querySelector('button[type="submit"]');
+      button.disabled = true;
 
       try {
         const result = await verifyTwoFactor(email, code);
         if (result.ok) {
-          window.location.href = 'dashboard.html';
-        } else {
-          displayError(twoFaForm, result.data.detail || 'Incorrect code. Please try again.');
+          // The verifyTwoFactor function shows the success message and saves tokens.
+          // We just need to redirect.
+          setTimeout(() => { window.location.href = 'dashboard.html'; }, 500); // Small delay for the user to see the success message
         }
-      } catch (error) {
-        displayError(twoFaForm, 'An error occurred. Please try again.');
+      } finally {
+        button.disabled = false;
       }
     });
   }

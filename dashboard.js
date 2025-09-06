@@ -2,13 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Authentication & Data Loading ---
   (async () => {
     // This is an Immediately Invoked Function Expression (IIFE) to run on page load.
-    const token = getToken();
-    if (!token) {
-      // If no token, redirect to login immediately.
-      window.location.href = 'login.html?reason=unauthenticated';
-      return;
-    }
-
+    protectPage(); // 🚨 Enforces login. If not logged in, this function will redirect.
+    
     // Show a loading state while fetching data
     const welcomeHeader = document.querySelector('.welcome-text h1');
     if (welcomeHeader) welcomeHeader.textContent = 'Loading...';
@@ -16,14 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const data = await loadDashboardData();
 
-      if (data.error) {
+      if (!data.ok) {
         // This could happen if the token is invalid or expired
-        logout(); // Use the logout function to clear storage and redirect
+        // The apiCall function already shows an error. We just need to log out.
+        logout();
         return;
       }
 
       // --- Populate Dashboard with User Data ---
-      populateDashboard(data);
+      populateDashboard(data.data);
 
     } catch (error) {
       console.error('Failed to load dashboard data:', error);
