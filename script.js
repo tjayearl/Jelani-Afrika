@@ -135,6 +135,22 @@ function getClaimStatus(claimId) {
   return apiCall(`${BASE_URL}/claim-status/${claimId}/`);
 }
 
+// === Password Reset (Step 1: Request) ===
+function requestPasswordReset(email) {
+  return apiCall(`${BASE_URL}/password-reset/`, {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+}
+
+// === Password Reset (Step 2: Confirm) ===
+function confirmPasswordReset(token, uid, password) {
+  return apiCall(`${BASE_URL}/password-reset/confirm/`, {
+    method: 'POST',
+    body: JSON.stringify({ token, uid, password }),
+  });
+}
+
 // === Logout ===
 function logout() {
   // You might also want to call a backend endpoint to invalidate the refresh token

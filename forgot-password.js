@@ -3,57 +3,68 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetForm = document.getElementById('reset-password-form');
   const successMessage = document.getElementById('reset-success-message');
 
-  const displayError = (form, message) => {
-    const errorDiv = form.querySelector('.auth-error');
-    if (errorDiv) {
-      errorDiv.textContent = message;
-      errorDiv.style.display = 'block';
-    }
-  };
+  // Check URL for reset token and uid
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('token');
+  const uid = urlParams.get('uid');
 
-  const hideError = (form) => {
-    const errorDiv = form.querySelector('.auth-error');
-    if (errorDiv) {
-      errorDiv.style.display = 'none';
-    }
-  };
-
-  if (requestForm) {
-    requestForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      hideError(requestForm);
-      // In a real app, you would send the email to the server here.
-      
-      // For this demo, we'll just show the success message.
-      // In a real scenario, you would only show the success message.
-      // The user would then click a link in their email which would lead
-      // to a page with the reset-password-form.
-      requestForm.classList.remove('active');
-      successMessage.style.display = 'flex'; // It's a flex container
-
-      // To demonstrate the flow, we'll also show the reset form after a delay.
-      // In a real app, this form would be on a separate page accessed via a token link.
-      setTimeout(() => {
-        successMessage.style.display = 'none';
-        resetForm.classList.add('active');
-      }, 4000); // Show reset form after 4 seconds for demo
-    });
+  // If token and uid are in the URL, show the reset form. Otherwise, show the request form.
+  if (token && uid) {
+    requestForm.classList.remove('active');
+    resetForm.classList.add('active');
+  } else {
+    requestForm.classList.add('active');
+    resetForm.classList.remove('active');
   }
 
-  if (resetForm) {
-    resetForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      hideError(resetForm);
-      const newPassword = resetForm.querySelector('[name="new_password"]').value;
-      const confirmPassword = resetForm.querySelector('[name="confirm_new_password"]').value;
+  // --- Event Listener for Requesting a Reset Link ---
+  requestForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = requestForm.querySelector('[name="email"]').value;
+    const button = requestForm.querySelector('button[type="submit"]');
+    button.disabled = true;
 
-      if (newPassword !== confirmPassword) {
-        displayError(resetForm, 'Passwords do not match. Please try again.');
-        return;
+    try {
+      const result = await requestPasswordReset(email);
+      if (result.ok) {
+        // On success, always show the same message to prevent user enumeration
+        requestForm.classList.remove('active');
+        successMessage.style.display = 'flex';
       }
+    } finally {
+      button.disabled = false;
+    }
+  });
 
-      alert('Your password has been reset successfully! You can now log in.');
-      window.location.href = 'login.html';
-    });
-  }
+  // --- Event Listener for Submitting the New Password ---
+  resetForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const newPassword = resetForm.querySelector('[name="new_password"]').value;
+    const confirmPassword = resetForm.querySelector('[name="confirm_new_password"]').value;
+    const button = resetForm.querySelector('button[type="submit"]');
+
+    if (newPassword !== confirmPassword) {
+      showMessage('Passwords do not match. Please try again.', 'error');
+      return;
+    }
+
+    if (!token || !uid) {
+      showMessage('Invalid or expired reset link. Please request a new one.', 'error');
+      return;
+    }
+
+    button.disabled = true;
+
+    try {
+      const result = await confirmPasswordReset(token, uid, newPassword);
+      if (result.ok) {
+        showMessage('Password has been reset successfully! You can now log in.', 'success');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+      }
+    } finally {
+      button.disabled = false;
+    }
+  });
 });
