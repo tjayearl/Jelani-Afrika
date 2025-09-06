@@ -145,23 +145,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (claimForm && successMessage) {
-    claimForm.addEventListener('submit', (e) => {
+    claimForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // In a real application, you would use FormData to send the form data
-      // and files to a server.
-      // const formData = new FormData(claimForm);
-      // fetch('/your-server-endpoint', { method: 'POST', body: formData });
-      
-      // For this demo, we'll just show the success message.
-      const title = document.querySelector('.claim-wizard-wrapper h2');
-      if (title) {
-        title.style.display = 'none';
+      const formData = new FormData(claimForm);
+      const button = claimForm.querySelector('button[type="submit"]');
+      button.disabled = true;
+      button.innerHTML = 'Submitting... <i class="fas fa-spinner fa-spin"></i>';
+
+      try {
+        const result = await submitClaim(formData);
+
+        if (result.ok) {
+          claimForm.style.display = 'none';
+          document.querySelector('.claim-wizard-wrapper h2').style.display = 'none';
+          successMessage.style.display = 'block';
+          localStorage.removeItem(STORAGE_KEY); // Clear saved data on successful submission
+        } else {
+          const errorMessage = Object.values(result.data).flat().join(' ');
+          alert(`Submission failed: ${errorMessage || 'Please check your form and try again.'}`);
+        }
+      } catch (error) {
+        alert('An error occurred during submission. Please try again.');
+        button.disabled = false;
+        button.innerHTML = 'Submit Claim <i class="fas fa-paper-plane"></i>';
       }
-      claimForm.style.display = 'none';
-      if (successMessage) {
-        successMessage.style.display = 'block';
+      finally {
+        button.disabled = false;
+        button.innerHTML = 'Submit Claim <i class="fas fa-paper-plane"></i>';
       }
-      localStorage.removeItem(STORAGE_KEY); // Clear saved data on successful submission
     });
   }
 

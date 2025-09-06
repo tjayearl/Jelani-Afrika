@@ -98,25 +98,36 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       hideError(loginForm);
+      const email = loginForm.querySelector('[name="email"]').value;
       const password = loginForm.querySelector('[name="password"]').value;
+      const button = loginForm.querySelector('button[type="submit"]');
+      button.disabled = true;
+      button.innerHTML = 'Logging in... <i class="fas fa-spinner fa-spin"></i>';
 
-      // Demo logic: any password other than "password123" is wrong
-      if (password !== 'password123') {
-        displayError(loginForm, 'Invalid password. Please try again.');
-      } else {
-        // On successful password, show 2FA form
-        loginForm.classList.remove('active');
-        twoFaForm.classList.add('active');
-        formToggle.style.display = 'none'; // Hide tabs during 2FA
+      try {
+        const result = await loginUser(email, password);
+        if (result.ok) {
+          // On successful password, show 2FA form
+          loginForm.classList.remove('active');
+          twoFaForm.classList.add('active');
+          formToggle.style.display = 'none'; // Hide tabs during 2FA
+        } else {
+          displayError(loginForm, result.data.detail || 'Invalid credentials. Please try again.');
+        }
+      } catch (error) {
+        displayError(loginForm, 'An error occurred. Please try again later.');
+      } finally {
+        button.disabled = false;
+        button.innerHTML = 'Login <i class="fas fa-right-to-bracket"></i>';
       }
     });
   }
 
   if (registerForm) {
-    registerForm.addEventListener('submit', (e) => {
+    registerForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       hideError(registerForm);
       const password = registerForm.querySelector('[name="password"]').value;
@@ -126,25 +137,48 @@ document.addEventListener('DOMContentLoaded', () => {
         displayError(registerForm, 'Passwords do not match. Please try again.');
         return;
       }
-      
-      // On successful registration, redirect to dashboard with a welcome message
-      window.location.href = 'dashboard.html?new_user=true';
+
+      const formData = new FormData(registerForm);
+      const userData = Object.fromEntries(formData.entries());
+      const button = registerForm.querySelector('button[type="submit"]');
+      button.disabled = true;
+      button.innerHTML = 'Registering... <i class="fas fa-spinner fa-spin"></i>';
+
+      try {
+        const result = await registerUser(userData);
+        if (result.ok) {
+          // On successful registration, redirect to login page with a success message
+          window.location.href = 'login.html?registered=true';
+        } else {
+          // This assumes errorData is an object where keys are field names
+          const errorMessage = Object.values(result.data).flat().join(' ');
+          displayError(registerForm, errorMessage || 'Registration failed. Please try again.');
+        }
+      } catch (error) {
+        displayError(registerForm, 'An error occurred. Please try again later.');
+      } finally {
+        button.disabled = false;
+        button.innerHTML = 'Register <i class="fas fa-user-plus"></i>';
+      }
     });
   }
 
   if (twoFaForm) {
-    twoFaForm.addEventListener('submit', (e) => {
+    twoFaForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       hideError(twoFaForm);
       const code = twoFaForm.querySelector('[name="2fa_code"]').value;
+      const email = loginForm.querySelector('[name="email"]').value; // Get email from login form
 
-      // Demo logic: any code other than "123456" is wrong
-      if (code !== '123456') {
-        displayError(twoFaForm, 'Incorrect code. Please try again.');
-      } else {
-        alert('Login successful!');
-        sessionStorage.setItem('isLoggedIn', 'true');
-        window.location.href = 'dashboard.html';
+      try {
+        const result = await verifyTwoFactor(email, code);
+        if (result.ok) {
+          window.location.href = 'dashboard.html';
+        } else {
+          displayError(twoFaForm, result.data.detail || 'Incorrect code. Please try again.');
+        }
+      } catch (error) {
+        displayError(twoFaForm, 'An error occurred. Please try again.');
       }
     });
   }

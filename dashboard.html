@@ -62,29 +62,29 @@
             <div class="profile-avatar">D</div>
             <div class="welcome-text">
               <h1>Welcome back, David!</h1>
-              <p>Here's a summary of your account. <span class="last-login">Last login: Aug 27, 2025</span></p>
+              <p>Here's a summary of your account. <span class="last-login"></span></p>
             </div>
           </div>
           <div class="dashboard-overview">
             <div class="overview-card">
               <i class="fas fa-file-shield"></i>
               <div class="overview-card-info">
-                <span class="overview-card-number">2</span>
+                <span class="overview-card-number" data-type="policies">0</span>
                 <span class="overview-card-label">Active Policies</span>
               </div>
             </div>
             <div class="overview-card">
               <i class="fas fa-tasks"></i>
               <div class="overview-card-info">
-                <span class="overview-card-number">1</span>
+                <span class="overview-card-number" data-type="claims">0</span>
                 <span class="overview-card-label">Pending Claims</span>
               </div>
             </div>
             <div class="overview-card">
               <i class="fas fa-wallet"></i>
               <div class="overview-card-info">
-                <span class="overview-card-number">KES 5,000</span>
-                <span class="overview-card-label">Due Sept 15</span>
+                <span class="overview-card-number" data-type="payment">KES 0</span>
+                <span class="overview-card-label" data-type="payment-due">No payments due</span>
               </div>
             </div>
             <div class="overview-card">
@@ -211,6 +211,7 @@
     </div>
   </footer>
 
+  <script src="script.js"></script>
   <script src="dashboard.js"></script>
   <script src="main.js"></script>
 </body>

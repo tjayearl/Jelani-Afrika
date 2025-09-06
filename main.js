@@ -25,9 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             authLink.addEventListener('click', function handleLogout(e) {
                 e.preventDefault();
-                sessionStorage.removeItem('isLoggedIn');
-                alert('You have been logged out.');
-                window.location.href = 'index.html';
+                logout(); // Use the centralized logout function from script.js
             });
         }
     }
