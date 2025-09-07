@@ -1,5 +1,5 @@
 // === Base Backend URL ===
-const BASE_URL = "https://jelani-backend.onrender.com/api";
+const BASE_URL = "http://127.0.0.1:8000/api";
 
 // === DOM Helpers ===
 function showSpinner() {
@@ -88,7 +88,7 @@ async function apiCall(url, options = {}, isFormData = false) {
 
 // === Register ===
 function registerUser(userData) {
-  return apiCall(`${BASE_URL}/register/`, {
+  return apiCall(`${BASE_URL}/accounts/register/`, {
     method: "POST",
     body: JSON.stringify(userData),
   });
@@ -96,7 +96,7 @@ function registerUser(userData) {
 
 // === Login (Step 1: Email/Password) ===
 function loginUser(email, password) {
-  return apiCall(`${BASE_URL}/login/`, {
+  return apiCall(`${BASE_URL}/accounts/login/`, {
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
@@ -104,7 +104,7 @@ function loginUser(email, password) {
 
 // === Login (Step 2: Verify 2FA) ===
 async function verifyTwoFactor(email, otp) {
-  const result = await apiCall(`${BASE_URL}/verify-2fa/`, {
+  const result = await apiCall(`${BASE_URL}/accounts/verify-2fa/`, {
     method: "POST",
     body: JSON.stringify({ email, otp }),
   });
@@ -137,7 +137,7 @@ function getClaimStatus(claimId) {
 
 // === Password Reset (Step 1: Request) ===
 function requestPasswordReset(email) {
-  return apiCall(`${BASE_URL}/password-reset/`, {
+  return apiCall(`${BASE_URL}/accounts/password-reset/`, {
     method: 'POST',
     body: JSON.stringify({ email }),
   });
@@ -145,7 +145,7 @@ function requestPasswordReset(email) {
 
 // === Password Reset (Step 2: Confirm) ===
 function confirmPasswordReset(token, uid, password) {
-  return apiCall(`${BASE_URL}/password-reset/confirm/`, {
+  return apiCall(`${BASE_URL}/accounts/password-reset/confirm/`, {
     method: 'POST',
     body: JSON.stringify({ token, uid, password }),
   });
