@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const authLink = authLi.querySelector('a');
     if (!authLink) return;
 
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    // The new script uses 'access_token' in localStorage.
+    const isLoggedIn = !!localStorage.getItem('access_token');
 
     if (isLoggedIn) {
         // User is logged in, show "My Profile" on most pages

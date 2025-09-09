@@ -72,16 +72,21 @@
         <!-- Registration Form -->
         <form id="register-form" class="auth-form" action="#" method="POST">
           <h2>Create a New Account</h2>
-          <input type="text" name="name" placeholder="Full Name" required>
-          <input type="email" name="email" placeholder="Your Email" required>
+          <label for="register-name" class="sr-only">Full Name</label>
+          <input type="text" id="register-name" name="username" placeholder="Full Name" autocomplete="name" required>
+          <label for="register-email" class="sr-only">Your Email</label>
+          <input type="email" id="register-email" name="email" placeholder="Your Email" autocomplete="email" required>
           <div class="auth-error" style="display: none;"></div>
-          <input type="tel" name="phone" placeholder="Phone Number (Optional)">
-          <input type="password" id="register-password" name="password" placeholder="Create Password" required>
+          <label for="register-phone" class="sr-only">Phone Number (Optional)</label>
+          <input type="tel" id="register-phone" name="phone" placeholder="Phone Number (Optional)" autocomplete="tel">
+          <label for="register-password" class="sr-only">Create Password</label>
+          <input type="password" id="register-password" name="password" placeholder="Create Password" autocomplete="new-password" required>
           <div class="password-strength">
             <div class="strength-bar"></div>
             <span class="strength-text"></span>
           </div>
-          <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+          <label for="confirm-password" class="sr-only">Confirm Password</label>
+          <input type="password" id="confirm-password" name="password2" placeholder="Confirm Password" autocomplete="new-password" required>
           <div class="checkbox-group terms-agreement">
             <input type="checkbox" id="terms-agree" name="terms_agree" required>
             <label for="terms-agree">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a> & <a href="privacy.html" target="_blank">Privacy Policy</a></label>
