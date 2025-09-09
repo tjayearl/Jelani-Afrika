@@ -958,6 +958,11 @@ nav a .fa-caret-down {
   margin-bottom: -0.25rem;
 }
 
+/* Add margin for dynamically added form errors outside the auth-form context */
+.form-error-message {
+    margin-bottom: 1rem;
+}
+
 .auth-info {
   font-size: 0.9rem;
   color: #666;

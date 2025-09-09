@@ -10,11 +10,11 @@ function showLoading(el, on=true){
 async function apiCall(path, {method='GET', body=null, auth=false, headers={}}={}){
   const url = `${BASE_URL}${path}`;
   const opts = { method, headers: {...headers} };
-  if(body && typeof body === 'object' && !(body instanceof FormData)){
+  if (body instanceof FormData) {
+    opts.body = body; // Let the browser set the Content-Type for FormData
+  } else if (body && typeof body === 'object') {
     opts.body = JSON.stringify(body);
     opts.headers['Content-Type'] = 'application/json';
-  } else if(body instanceof FormData){
-    opts.body = body; // browser sets Content-Type
   }
   if(auth){
     const token = localStorage.getItem('access_token');
