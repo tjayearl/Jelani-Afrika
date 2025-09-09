@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hideError(registerForm);
       const name = registerForm.querySelector('[name="username"]').value;
       const email = registerForm.querySelector('[name="email"]').value;
+      const phone = registerForm.querySelector('[name="phone"]').value;
       const password = registerForm.querySelector('[name="password"]').value;
       const confirmPassword = registerForm.querySelector('[name="password2"]').value;
 
@@ -155,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       try {
         // The new registerUser expects specific fields.
-        const result = await registerUser({ username: name, email, password, password2: confirmPassword }, button);
+        const result = await registerUser({ username: name, email, password, password2: confirmPassword, phone }, button);
         if (result.ok) {
           showMessage('Registration successful! Please log in.', 'success');
           // Switch to the login form

@@ -31,9 +31,9 @@ async function apiCall(path, {method='GET', body=null, auth=false, headers={}}={
 }
 
 // register
-async function registerUser({username, email, password, password2}, resultEl){
+async function registerUser({username, email, password, password2, phone}, resultEl){
   showLoading(resultEl, true);
-  const r = await apiCall('/user/register/', { method:'POST', body:{username,email,password,password2} });
+  const r = await apiCall('/user/register/', { method:'POST', body:{username, email, password, password2, phone} });
   showLoading(resultEl, false);
   return r;
 }
