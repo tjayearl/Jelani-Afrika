@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // --- Populate Dashboard with User Data ---
+      console.log("Dashboard API raw response:", result.data);
       populateDashboard(result.data);
 
     } catch (error) {
