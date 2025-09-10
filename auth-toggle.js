@@ -113,15 +113,16 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       hideError(loginForm);
-      const email = loginForm.querySelector('[name="email"]').value;
-      const password = loginForm.querySelector('[name="password"]').value;      
       const button = loginForm.querySelector('button[type="submit"]');
       const errorEl = loginForm.querySelector('.auth-error');
 
+      const loginData = {
+        username: document.querySelector('#login-email').value, // can be email or username
+        password: document.querySelector('#login-password').value,
+      };
+
       try {
-        // The new loginUser expects an object with `username` and `password`.
-        // We'll use the email as the username.
-        const result = await loginUser({ username: email, password }, button);
+        const result = await loginUser(loginData, button);
         if (result.ok) {
           // The new script doesn't handle 2FA, so we redirect to dashboard on success.
           showMessage('Login successful! Redirecting...', 'success');
