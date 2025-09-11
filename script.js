@@ -31,17 +31,17 @@ async function apiCall(path, {method='GET', body=null, auth=false, headers={}}={
 }
 
 // register
-async function registerUser({username, email, password, password2, phone}, resultEl){
+async function registerUser({full_name, email, password, phone}, resultEl){
   showLoading(resultEl, true);
-  const r = await apiCall('/user/register/', { method:'POST', body:{username, email, password, password2, phone} });
+  const r = await apiCall('/register/', { method:'POST', body:{full_name, email, password, phone} });
   showLoading(resultEl, false);
   return r;
 }
 
 // login (JWT token)
-async function loginUser({username, password}, resultEl){
+async function loginUser({login, password}, resultEl){
   showLoading(resultEl, true);
-  const r = await apiCall('/token/', { method:'POST', body:{username,password} });
+  const r = await apiCall('/login/', { method:'POST', body:{login, password} });
   showLoading(resultEl, false);
   if(r.ok && r.data && r.data.access){
     localStorage.setItem('access_token', r.data.access);
