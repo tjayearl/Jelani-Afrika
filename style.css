@@ -2202,6 +2202,84 @@ main {
   margin-top: 2rem;
 }
 
+/* New Simple Contact Section Styles */
+.simple-contact-container {
+  text-align: center;
+}
+
+.simple-contact-container h2 {
+  font-size: 2.5rem;
+}
+
+.simple-contact-container .availability-note {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+.simple-contact-container p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.secure-chat-note {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #666;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sensitive-info-note {
+  font-size: 0.85rem;
+  color: #888;
+  max-width: 500px;
+  margin: 0.5rem auto 0;
+}
+
+.privacy-reassurance {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #666;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-light);
+}
+
+.btn-whatsapp {
+  background-color: #25D366; /* WhatsApp Green */
+  border-color: #25D366;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+  transition: all 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+  background-color: #128C7E; /* Darker WhatsApp Green */
+  border-color: #128C7E;
+  color: var(--text-light);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(37, 211, 102, 0.8);
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(37, 211, 102, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(37, 211, 102, 0.4);
+  }
+}
+
 @media (max-width: 768px) {
   .contact-container {
     flex-direction: column;
@@ -2435,9 +2513,36 @@ main {
   font-size: 2rem;
   box-shadow: var(--shadow-md);
   z-index: 1000;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.whatsapp-fab:hover { transform: scale(1.1); }
+.whatsapp-fab:hover {
+  transform: scale(1.1);
+  background-color: var(--primary-color); /* Use brand color on hover */
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* Custom Tooltip for the FAB */
+.whatsapp-fab::before {
+  content: attr(title);
+  position: absolute;
+  right: 110%; /* Position to the left of the button */
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--text-dark);
+  color: var(--text-light);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none; /* Don't let the tooltip block clicks */
+}
+
+.whatsapp-fab:hover::before {
+  opacity: 1;
+}
 
 /* Footer */
 footer {
@@ -2491,6 +2596,12 @@ footer {
 .footer-column ul a {
   opacity: 0.8;
   transition: opacity 0.2s ease-in-out;
+}
+.footer-column ul a i {
+  margin-right: 0.5rem;
+  width: 16px;
+  text-align: center;
+  opacity: 0.7;
 }
 
 .footer-column ul a:hover {
