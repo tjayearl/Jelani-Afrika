@@ -195,6 +195,13 @@ nav a .fa-caret-down {
   z-index: 1001; /* Above the nav pane */
 }
 
+.section-divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 0 auto;
+  width: 90%;
+}
+
 /* The 3 lines of the hamburger */
 .nav-toggle-label span,
 .nav-toggle-label span::before,
@@ -881,15 +888,20 @@ nav a .fa-caret-down {
   justify-content: center;
   align-items: flex-start; /* Align to top */
   min-height: 70vh;
-  background: var(--bg-light);
+  /* Burgundy & Silver: Soft silver background */
+  background: transparent; /* Now handled by app-container */
   animation: fadeInUp 0.5s ease-out forwards;
 }
 
 .form-wrapper {
-  background: var(--bg-white);
+  /* Burgundy & Silver: Deep burgundy container */
+  background: var(--primary-color); /* #800020 */
+  color: var(--text-light);
   padding: 2rem 2.5rem;
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow-md);
+  /* Burgundy & Silver: Subtle silver glow */
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), var(--shadow-md);
   width: 100%;
   max-width: 450px;
   text-align: center;
@@ -897,7 +909,7 @@ nav a .fa-caret-down {
 
 .form-toggle {
   display: flex;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   background: var(--bg-light);
   border-radius: var(--border-radius);
   padding: 0.25rem;
@@ -933,10 +945,140 @@ nav a .fa-caret-down {
   display: flex; /* Show the active form */
 }
 
+/* Input with Icon Styling */
+.input-group {
+  position: relative;
+  width: 100%;
+}
+
+.input-group i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #e0e0e0;
+  opacity: 0.7;
+}
+
+.input-group input {
+  padding-left: 45px; /* Make space for the icon */
+}
+
 .auth-form h2 {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  /* Burgundy & Silver: Make header text light */
+  color: var(--text-light);
   font-size: 1.8rem;
+}
+
+.auth-form select {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-light);
+  border: 1px solid #C0C0C0;
+  font-size: 1rem;
+  -webkit-appearance: none; /* Removes default browser styling */
+  -moz-appearance: none;
+  appearance: none;
+}
+.auth-form textarea {
+  /* Textareas for description: light silver background, burgundy text */
+  background: #e0e0e0;
+  color: var(--primary-color);
+  border: 1px solid #C0C0C0;
+  border-radius: var(--border-radius);
+  padding: 0.85rem;
+  font-family: inherit;
+  font-size: 1rem;
+  min-height: 100px;
+}
+
+.auth-form .form-group {
+  text-align: left;
+}
+
+.auth-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #e0e0e0; /* Silver text for labels */
+}
+  /* Textareas for description: light silver background, burgundy text */
+  background: #e0e0e0;
+  color: var(--primary-color);
+  border: 1px solid #C0C0C0;
+  border-radius: var(--border-radius);
+  padding: 0.85rem;
+  font-family: inherit;
+  font-size: 1rem;
+  min-height: 100px;
+}
+
+.auth-form textarea::placeholder {
+  color: #800020;
+  opacity: 0.6;
+}
+
+/* Claims Dashboard Styling */
+.claims-dashboard {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.claims-dashboard h2 {
+  color: var(--text-light); /* Silver headers */
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+#claimsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.claim-card {
+  /* Each claim as a silver card with burgundy headings */
+  background: #C0C0C0;
+  color: var(--primary-color);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  text-align: left;
+}
+
+.claim-card h4 {
+  color: var(--primary-color);
+  margin: 0 0 0.5rem 0;
+}
+
+.claim-card p {
+  color: var(--text-dark);
+  margin: 0 0 0.75rem 0;
+}
+
+.claim-status-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  background: #ffb3c1; /* Light burgundy for pending/default */
+  color: var(--primary-color);
+}
+
+.claim-status-tag.approved {
+  background: var(--primary-color); /* Deep burgundy for approved */
+  color: var(--text-light);
+}
+
+.auth-message.success {
+    color: #d4edda;
+    font-weight: bold;
 }
 
 .auth-form .btn {
@@ -946,9 +1088,10 @@ nav a .fa-caret-down {
 }
 
 .auth-error {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+  /* Burgundy & Silver: Error Messages */
+  background: #990022; /* Subtle burgundy-red */
+  color: #f0f2f5; /* Light silver text */
+  border: 1px solid #ffb3c1; /* Light burgundy border */
   padding: 0.75rem 1.25rem;
   border-radius: var(--border-radius);
   width: 100%;

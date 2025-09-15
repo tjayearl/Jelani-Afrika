@@ -18,8 +18,8 @@
     <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
     <nav>
       <ul>
-       <li class="active"><a href="#home">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
+        <li class="active"><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
         <li class="dropdown">
           <a href="#services">Products / Services <i class="fas fa-caret-down"></i></a>
           <div class="dropdown-content">
@@ -31,11 +31,12 @@
           </div>
         </li>
         <li><a href="#contact">Get a Quote</a></li>
-        <li><a href="claims.html">Claims</a></li>
-        <li><a href="payment.html">Pay Online</a></li>
+        <li><a href="#claims">Claims</a></li>
         <li><a href="#faq">FAQs</a></li>
         <li><a href="#contact">Contact Us</a></li>
-        <li><a href="login.html">Login / Sign Up</a></li>
+        <li id="auth-nav-link-container">
+          <a href="#auth-section">Login / Register</a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -142,6 +143,20 @@
         </div>
       </div>
     </section>
+
+    <!-- All-in-One App Container (Claims Only) -->
+    <div class="app-container">
+        <!-- Claims Section -->
+        <section id="claims" class="app-section">
+            <div class="form-wrapper">
+                <h2 class="claims-header">Claims Center</h2>
+                <p id="claims-welcome-message" class="claims-welcome"></p>
+                <div id="claims-content"></div> <!-- Content will be injected here -->
+            </div>
+        </section>
+    </div>
+
+    <div class="section-divider"></div>
 
     <!-- Call to Action Section -->
     <section id="cta" class="cta">
@@ -311,9 +326,58 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
+  <!-- Login/Register Modal Overlay -->
+  <section id="auth-section" class="auth-modal-overlay">
+    <div class="form-wrapper">
+      <button class="modal-close" id="auth-modal-close" aria-label="Close login/register form">&times;</button>
+      <div class="form-toggle">
+        <button id="show-login" class="toggle-btn active">Login</button>
+        <button id="show-register" class="toggle-btn">Register</button>
+      </div>
+      <form id="loginForm" class="auth-form active">
+        <h2>Login</h2>
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input name="login" placeholder="Email or Username" required>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input name="password" type="password" placeholder="Password" required>
+        </div>
+        <div class="auth-error" style="display: none;"></div>
+        <button type="submit">Login</button>
+      </form>
+      <form id="registerForm" class="auth-form">
+        <h2>Register</h2>
+        <div class="input-group">
+          <i class="fas fa-user-circle"></i>
+          <input name="full_name" placeholder="Full Name" required>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input name="email" type="email" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input id="register-password" name="password" type="password" placeholder="Password" required>
+        </div>
+        <input name="password2" type="password" placeholder="Confirm Password" required>
+        <div class="password-strength">
+          <div class="strength-bar"></div>
+          <span class="strength-text"></span>
+        </div>
+        <div class="auth-error" style="display: none;"></div>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </section>
+
+  <script src="api.js"></script>
   <script src="script.js"></script>
   <script src="quote-wizard.js"></script>
   <script src="main.js"></script>
-  <script src="contact-form.js"></script>
+  <script src="auth.js"></script>
+  <script src="claims.js"></script>
+  <script src="auth-toggle.js"></script>
 </body>
 </html>

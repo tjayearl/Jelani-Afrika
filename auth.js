@@ -32,8 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await apiFetch("/register/", { method: "POST", body: JSON.stringify(data), headers: {'Content-Type': 'application/json'} });
       const result = await handleResponse(res);
       if (result.ok) {
-        alert("Registration successful! Please login.");
-        document.getElementById('show-login').click(); // Switch to login form
+        // Show success message inline
+        registerForm.innerHTML = `<div class="auth-message success" style="padding: 2rem 0;">✅ Account created successfully! Please log in.</div>`;
+        setTimeout(() => {
+          document.getElementById('show-login').click();
+        }, 2500);
       } else {
         displayError(registerForm, Object.values(result.data).flat().join(' '));
       }
@@ -53,8 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const result = await handleResponse(res);
       if (result.ok) {
         saveTokens(result.data);
-        alert("Login successful!");
-        window.location.href = "claims.html";
+        // Show success message and then reload to update the page state
+        loginForm.innerHTML = `<div class="auth-message success" style="padding: 2rem 0;">✅ Login successful! Redirecting...</div>`;
+        setTimeout(() => {
+          document.getElementById('auth-section')?.classList.remove('visible');
+          window.location.reload();
+        }, 1500);
       } else {
         displayError(loginForm, "Login failed. Check your credentials.");
       }

@@ -2,17 +2,29 @@
 <html>
 <head>
   <title>Claims</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <form id="claimForm">
-    <input name="policy_number" placeholder="Policy Number" required>
-    <input name="claim_type" placeholder="Claim Type" required>
-    <textarea name="description" placeholder="Describe your claim" required></textarea>
-    <button>Submit Claim</button>
-  </form>
-  <div id="claimsList"></div>
+  <main>
+    <section class="auth-container">
+      <div class="form-wrapper">
+        <form id="claimForm" class="auth-form active">
+          <h2>File a New Claim</h2>
+          <input name="policy_number" placeholder="Policy Number" required>
+          <input name="claim_type" placeholder="Claim Type" required>
+          <textarea name="description" placeholder="Describe your claim" required></textarea>
+          <button type="submit">Submit Claim</button>
+        </form>
+        <div class="claims-dashboard">
+            <h2>Your Claims</h2>
+            <div id="claimsList"></div>
+        </div>
+        <button id="logoutButton" class="btn btn-outline">Logout</button>
+      </div>
+    </section>
+  </main>
 
-  <script type="module" src="api.js"></script>
-  <script type="module" src="claims.js"></script>
+  <script src="api.js"></script>
+  <script src="claims.js"></script>
 </body>
 </html>

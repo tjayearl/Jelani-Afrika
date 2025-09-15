@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const showLoginBtn = document.getElementById('show-login');
   const showRegisterBtn = document.getElementById('show-register');
-  const loginForm = document.getElementById('login-form');
-  const registerForm = document.getElementById('register-form');
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
   const twoFaForm = document.getElementById('2fa-form');
   const formWrapper = document.querySelector('.form-wrapper');
   const formToggle = document.querySelector('.form-toggle');
@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
       showLoginBtn.classList.add('active');
       showRegisterBtn.classList.remove('active');
       formToggle.style.display = 'flex';
+      // Autofocus on the first input field
+      loginForm.querySelector('input')?.focus();
     });
 
     showRegisterBtn.addEventListener('click', () => {
@@ -25,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
       showLoginBtn.classList.remove('active');
       showRegisterBtn.classList.add('active');
       formToggle.style.display = 'flex';
+      // Autofocus on the first input field
+      registerForm.querySelector('input')?.focus();
     });
   }
 
@@ -32,6 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const passwordInput = document.getElementById('register-password');
   const strengthBar = document.querySelector('.strength-bar');
   const strengthText = document.querySelector('.strength-text');
+
+  // Autofocus on the first field of the initially active form
+  if (loginForm && loginForm.classList.contains('active')) {
+    loginForm.querySelector('input')?.focus();
+  }
 
   if (passwordInput && strengthBar && strengthText) {
     passwordInput.addEventListener('input', () => {

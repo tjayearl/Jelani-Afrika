@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head><title>Login</title></head>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-  <form id="loginForm">
-    <input name="login" placeholder="Email or Username" required>
-    <input name="password" type="password" placeholder="Password" required>
-    <button>Login</button>
-  </form>
-  <script type="module" src="api.js"></script>
-  <script type="module" src="auth.js"></script>
+  <main>
+    <section class="auth-container">
+      <div class="form-wrapper">
+        <form id="loginForm" class="auth-form active">
+          <h2>Login</h2>
+          <input name="login" placeholder="Email or Username" required>
+          <input name="password" type="password" placeholder="Password" required>
+          <div class="auth-error" style="display: none;"></div>
+          <button type="submit">Login</button>
+          <p>Don't have an account? <a href="register.html">Register here</a>.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script src="api.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>

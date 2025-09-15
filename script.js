@@ -51,6 +51,12 @@ async function getClaims(){
   return await handleResponse(res);
 }
 
+// get user profile
+async function getUserProfile() {
+  const res = await apiFetch('/profile/'); // Assumes a new /api/profile/ endpoint
+  return await handleResponse(res);
+}
+
 // helper redirect if not logged in
 function requireAuth(redirectTo='/login.html'){
   if(!localStorage.getItem('access_token')) window.location = redirectTo;
