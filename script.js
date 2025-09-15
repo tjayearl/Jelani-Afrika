@@ -1,39 +1,23 @@
 // script.js - put this in your frontend and include <script src="/script.js"></script>
-const BASE_URL = "https://jelani-backend.onrender.com/api"; // deployed backend
+// Note: The BASE_URL is now in api.js
 
 function showLoading(el, on=true){
   if(!el) return;
   el.dataset.loading = on ? "1" : "0";
 }
 
-// generic API helper
-async function apiCall(path, {method='GET', body=null, auth=false, headers={}}={}){
-  const url = `${BASE_URL}${path}`;
-  const opts = { method, headers: {...headers} };
-  if (body instanceof FormData) {
-    opts.body = body; // Let the browser set the Content-Type for FormData
-  } else if (body && typeof body === 'object') {
-    opts.body = JSON.stringify(body);
-    opts.headers['Content-Type'] = 'application/json';
-  }
-  if(auth){
-    const token = localStorage.getItem('access_token');
-    if(token) opts.headers['Authorization'] = `Bearer ${token}`;
-  }
-  try{
-    const res = await fetch(url, opts);
-    const text = await res.text();
-    try { return { ok: res.ok, status: res.status, data: JSON.parse(text) }; }
-    catch(_) { return { ok: res.ok, status: res.status, data: text }; }
-  }catch(err){
-    return { ok:false, status: 0, error: err.message || String(err) };
-  }
+// Generic response handler to parse JSON or text
+async function handleResponse(res) {
+  const text = await res.text();
+  try { return { ok: res.ok, status: res.status, data: JSON.parse(text) }; }
+  catch(_) { return { ok: res.ok, status: res.status, data: text }; }
 }
 
 // register
 async function registerUser({full_name, email, password, phone}, resultEl){
   showLoading(resultEl, true);
-  const r = await apiCall('/register/', { method:'POST', body:{full_name, email, password, phone} });
+  const res = await apiFetch('/register/', { method:'POST', body: JSON.stringify({full_name, email, password, phone}), headers: {'Content-Type': 'application/json'} });
+  const r = await handleResponse(res);
   showLoading(resultEl, false);
   return r;
 }
@@ -41,13 +25,30 @@ async function registerUser({full_name, email, password, phone}, resultEl){
 // login (JWT token)
 async function loginUser({login, password}, resultEl){
   showLoading(resultEl, true);
-  const r = await apiCall('/login/', { method:'POST', body:{login, password} });
+  const res = await apiFetch('/login/', { method:'POST', body: JSON.stringify({login, password}), headers: {'Content-Type': 'application/json'} });
+  const r = await handleResponse(res);
   showLoading(resultEl, false);
   if(r.ok && r.data && r.data.access){
-    localStorage.setItem('access_token', r.data.access);
-    localStorage.setItem('refresh_token', r.data.refresh || '');
+    saveTokens(r.data); // Use the new helper from api.js
   }
   return r;
+}
+
+// submit a new claim
+async function submitClaim(formData, resultEl){
+  showLoading(resultEl, true);
+  // apiFetch automatically adds the token.
+  // For FormData, we don't set Content-Type header.
+  const res = await apiFetch('/claims/', { method:'POST', body: formData });
+  const r = await handleResponse(res);
+  showLoading(resultEl, false);
+  return r;
+}
+
+// get list of claims
+async function getClaims(){
+  const res = await apiFetch('/claims/'); // GET request by default
+  return await handleResponse(res);
 }
 
 // helper redirect if not logged in

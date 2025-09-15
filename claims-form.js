@@ -1,7 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 🚨 Enforce login before anything else happens on this page.
-  protectPage();
-
+  // 🚨 Enforce login before anything else happens on this page. 
+  // This aligns with the user's request to protect the page.
+  // The token name is 'access_token' as defined in script.js
+  if (!localStorage.getItem("access_token")) {
+    alert("You must be logged in to file a claim.");
+    window.location.href = "/login.html";
+  }
+  
   const claimForm = document.getElementById('claim-form');
   if (!claimForm) return; // Only run on the claims page
 
@@ -12,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressBar = claimForm.querySelector('.progress-bar');
   const successMessage = document.getElementById('claim-success-message');
   const fileInput = document.getElementById('claim-files');
+  const claimsListDiv = document.getElementById('claimsList');
   const fileNameSpan = claimForm.querySelector('.file-name');
 
   let currentStep = 1;
@@ -108,6 +114,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // --- Function to fetch and display claims ---
+  const displayClaims = async () => {
+    const claimsListDiv = document.getElementById("claimsList");
+    if (!claimsListDiv) return;
+
+    // Using getClaims() from script.js which handles auth headers
+    const result = await getClaims(); 
+
+    if (result.ok) {
+      const claims = result.data;
+      // This rendering logic is taken from your provided snippet
+      claimsListDiv.innerHTML = claims.map(
+        c => `<div><strong>${c.policy_number}</strong> - ${c.claim_type} <br/> ${c.description}</div>`
+      ).join("");
+      if (claims.length === 0) {
+        claimsListDiv.innerHTML = "<p>You have not filed any claims yet.</p>";
+      }
+    } else {
+      claimsListDiv.innerHTML = `<p class="auth-error">Failed to load claims: ${JSON.stringify(result.data)}</p>`;
+    }
+  };
+
+
   // --- Event Listeners ---
 
   nextButtons.forEach(button => {
@@ -156,22 +185,26 @@ document.addEventListener('DOMContentLoaded', () => {
       button.innerHTML = 'Submitting... <i class="fas fa-spinner fa-spin"></i>';
 
       try {
-        const result = await submitClaim(formData);
+        // Use the new submitClaim function from script.js
+        const result = await submitClaim(formData, button);
 
         if (result.ok) {
           claimForm.style.display = 'none';
           document.querySelector('.claim-wizard-wrapper h2').style.display = 'none';
           successMessage.style.display = 'block';
-          localStorage.removeItem(STORAGE_KEY); // Clear saved data on successful submission
+          localStorage.removeItem(STORAGE_KEY);
+          alert("✅ Claim submitted!");
+          // Reload the claims list to show the new submission
+          displayClaims(); 
         } else {
-          // The apiCall function in script.js will show the error message automatically.
+          // Show error from backend
+          const error = result.data;
+          alert("❌ Failed: " + JSON.stringify(error));
         }
       } catch (error) {
-        alert('An error occurred during submission. Please try again.');
-        button.disabled = false;
-        button.innerHTML = 'Submit Claim <i class="fas fa-paper-plane"></i>';
-      }
-      finally {
+        alert('❌ An unexpected error occurred during submission. Please try again.');
+      } finally {
+        // Always re-enable the button
         button.disabled = false;
         button.innerHTML = 'Submit Claim <i class="fas fa-paper-plane"></i>';
       }
@@ -189,4 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
     discardButton.addEventListener('click', discardProgress);
   }
 
+  // Initial call to load claims history
+  displayClaims();
 });
