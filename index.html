@@ -35,7 +35,7 @@
         <li><a href="#faq">FAQs</a></li>
         <li><a href="#contact">Contact Us</a></li>
         <li id="auth-nav-link-container">
-          <a href="#auth-section">Login / Register</a>
+          <a href="agent-login.html" class="btn btn-outline" style="padding: 0.5rem 1rem; margin: -0.5rem 0;">Login for Agents</a>
         </li>
       </ul>
     </nav>
@@ -144,17 +144,38 @@
       </div>
     </section>
 
-    <!-- All-in-One App Container (Claims Only) -->
-    <div class="app-container">
-        <!-- Claims Section -->
-        <section id="claims" class="app-section">
-            <div class="form-wrapper">
-                <h2 class="claims-header">Claims Center</h2>
-                <p id="claims-welcome-message" class="claims-welcome"></p>
-                <div id="claims-content"></div> <!-- Content will be injected here -->
-            </div>
-        </section>
-    </div>
+    <!-- Claims Section (Phase 1 - Simple Form) -->
+    <section id="claims" class="contact">
+      <div class="container">
+        <div class="claims-header-text">
+          <h2>Submit Your Claim</h2>
+          <p>Fill out this form and we’ll get back to you as soon as possible.</p>
+        </div>
+        <div class="claims-layout-wrapper">
+          <div class="claims-icon-column">
+            <i class="fas fa-file-signature"></i>
+          </div>
+          <div class="claims-form-column">
+            <form id="simple-claim-form" class="contact-form-standalone">
+              <div class="form-group">
+                <label for="claim-name">Full Name</label>
+                <input type="text" id="claim-name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="claim-email">Email Address</label>
+                <input type="email" id="claim-email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="claim-message">Message (Include Policy # and incident details)</label>
+                <textarea id="claim-message" name="message" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-full-width">Submit Claim Request</button>
+            </form>
+          </div>
+        </div>
+        <p class="phase-note">This is our Phase 1 Claims feature. More detailed claims tracking is coming soon!</p>
+      </div>
+    </section>
 
     <div class="section-divider"></div>
 
@@ -326,56 +347,11 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
-  <!-- Login/Register Modal Overlay -->
-  <section id="auth-section" class="auth-modal-overlay">
-    <div class="form-wrapper">
-      <button class="modal-close" id="auth-modal-close" aria-label="Close login/register form">&times;</button>
-      <div class="form-toggle">
-        <button id="show-login" class="toggle-btn active">Login</button>
-        <button id="show-register" class="toggle-btn">Register</button>
-      </div>
-      <form id="loginForm" class="auth-form active">
-        <h2>Login</h2>
-        <div class="input-group">
-          <i class="fas fa-user"></i>
-          <input name="login" placeholder="Email or Username" required>
-        </div>
-        <div class="input-group">
-          <i class="fas fa-lock"></i>
-          <input name="password" type="password" placeholder="Password" required>
-        </div>
-        <div class="auth-error" style="display: none;"></div>
-        <button type="submit">Login</button>
-      </form>
-      <form id="registerForm" class="auth-form">
-        <h2>Register</h2>
-        <div class="input-group">
-          <i class="fas fa-user-circle"></i>
-          <input name="full_name" placeholder="Full Name" required>
-        </div>
-        <div class="input-group">
-          <i class="fas fa-envelope"></i>
-          <input name="email" type="email" placeholder="Email" required>
-        </div>
-        <div class="input-group">
-          <i class="fas fa-lock"></i>
-          <input id="register-password" name="password" type="password" placeholder="Password" required>
-        </div>
-        <input name="password2" type="password" placeholder="Confirm Password" required>
-        <div class="password-strength">
-          <div class="strength-bar"></div>
-          <span class="strength-text"></span>
-        </div>
-        <div class="auth-error" style="display: none;"></div>
-        <button type="submit">Register</button>
-      </form>
-    </div>
-  </section>
-
   <script src="api.js"></script>
   <script src="script.js"></script>
   <script src="quote-wizard.js"></script>
   <script src="main.js"></script>
+  <script src="simple-claim.js"></script>
   <script src="auth.js"></script>
   <script src="claims.js"></script>
   <script src="auth-toggle.js"></script>

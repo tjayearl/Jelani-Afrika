@@ -2602,6 +2602,14 @@ main {
   .about-image-content { display: none; } /* Hide image on mobile to save space and focus on text */
 
   .status-dot { margin: 0; }
+
+  .claims-layout-wrapper {
+    grid-template-columns: 1fr; /* Stack columns on mobile */
+    padding: 1.5rem;
+  }
+  .claims-icon-column {
+    display: none; /* Hide the large icon on mobile to save space */
+  }
 }
 @media (max-width: 768px) {
   /* ... existing rules ... */
