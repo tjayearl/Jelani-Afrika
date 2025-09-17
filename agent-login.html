@@ -3,107 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agent Portal - Coming Soon - Jelani-Africa Insurance Agency</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="style.css">
+  <title>Agent Portal</title>
   <style>
-    .placeholder-container {
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 5%;
+      background-color: #f9f9f9;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      min-height: 60vh;
-      text-align: center;
-      padding: 3rem 2rem;
-      background: var(--bg-white);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow-md);
-      max-width: 800px;
-      margin: 3rem auto;
+      min-height: 100vh;
     }
-    .placeholder-container h1 {
-      font-size: 2.8rem;
-      color: var(--primary-color);
+    h1 {
+      color: #004aad;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
     }
-    .placeholder-container p {
-      font-size: 1.2rem;
-      color: #666;
-      max-width: 600px;
-      margin-bottom: 2rem;
-    }
-    .progress-timeline {
-      width: 100%;
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin: 10px auto;
       max-width: 500px;
-      margin: 2rem 0;
     }
-    .progress-timeline h4 {
-      margin-bottom: 1rem;
-      color: var(--text-dark);
+    .progress {
+      margin: 20px 0;
+      font-size: 0.95rem;
+      color: #555;
     }
-    .status-timeline {
-      justify-content: center;
+    .hidden-unlock {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      margin-top: 20px;
     }
-    .status-step.completed .status-dot {
-      background-color: var(--primary-color);
+    .hidden-unlock.show {
+      opacity: 1;
     }
-    .status-step.active .status-dot {
-      background-color: var(--primary-hover);
-      animation: pulse 2s infinite;
+    .unlock-btn {
+      background-color: #004aad;
+      color: white;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 80%;
+      max-width: 300px;
+      margin: 10px auto;
+      display: block;
+      cursor: pointer;
     }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(128, 0, 32, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(128, 0, 32, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(128, 0, 32, 0); }
+    .unlock-btn:active {
+      transform: scale(0.98);
+    }
+    .back-btn {
+      margin-top: 20px;
+      display: inline-block;
+      color: #004aad;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    /* Mobile-first adjustments */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+      p {
+        font-size: 0.95rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <a href="index.html" class="branding">
-      <h1>Jelani-Africa</h1>
-      <p class="tagline">Securing Your Future, Together.</p>
-    </a>
-    <!-- Simplified nav for this page -->
-  </header>
+  <h1>Agent Portal Coming Soon</h1>
+  <p>We're developing a dedicated portal for our agents to manage clients, track commissions, and access valuable resources to help you succeed.</p>
 
-  <main>
-    <div class="placeholder-container">
-      <h1><i class="fas fa-user-tie"></i> Agent Portal Coming Soon</h1>
-      <p>We're developing a dedicated portal for our agents to manage clients, track commissions, and access valuable resources to help you succeed.</p>
+  <div class="progress">
+    <p>🚧 Planning → 🏗 Development → 🧪 Testing → 🚀 Launch</p>
+  </div>
 
-      <div class="progress-timeline">
-        <h4>Development Progress</h4>
-        <div class="status-timeline">
-          <div class="status-step completed">
-            <div class="status-dot"></div>
-            <div class="status-label">Planning</div>
-          </div>
-          <div class="status-step active">
-            <div class="status-dot"></div>
-            <div class="status-label">Development</div>
-          </div>
-          <div class="status-step">
-            <div class="status-dot"></div>
-            <div class="status-label">Testing</div>
-          </div>
-          <div class="status-step">
-            <div class="status-dot"></div>
-            <div class="status-label">Launch</div>
-          </div>
-        </div>
-      </div>
+  <a href="/" class="back-btn">⬅ Go Back to Home</a>
 
-      <a href="index.html" class="btn btn-outline">Go Back to Home</a>
-    </div>
-  </main>
+  <!-- Hidden Unlock Button -->
+  <div class="hidden-unlock" id="unlockSection">
+    <button class="unlock-btn" onclick="window.location.href='employee-dashboard-login.html'">
+      🔒 Unlock Employee Dashboard
+    </button>
+  </div>
 
-  <!-- Footer -->
-  <footer class="footer-placeholder">
-     <div class="footer-bottom">
-      <p>&copy; 2025 Jelani-Africa Insurance Agency. All rights reserved.</p>
-    </div>
-  </footer>
+  <script>
+    // Show hidden unlock button when user taps the screen 3 times OR presses SHIFT+D
+    let tapCount = 0;
+    let tapTimeout;
 
+    document.addEventListener("click", function () {
+      tapCount++;
+      clearTimeout(tapTimeout);
+      tapTimeout = setTimeout(() => (tapCount = 0), 800);
+
+      if (tapCount === 3) {
+        document.getElementById("unlockSection").classList.add("show");
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.shiftKey && event.key === "D") {
+        document.getElementById("unlockSection").classList.add("show");
+      }
+    });
+  </script>
 </body>
 </html>

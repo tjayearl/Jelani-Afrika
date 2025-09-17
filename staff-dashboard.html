@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jelani Staff Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+    #dashboard { display: none; }
+    .hidden-message { color: gray; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>Staff Dashboard</h1>
+  <p class="hidden-message">🚧 This dashboard is still a work in progress.</p>
+
+  <div id="login-section">
+    <p>Enter staff password to continue:</p>
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkPassword()">Login</button>
+    <p id="error-message" style="color:red;"></p>
+  </div>
+
+  <div id="dashboard">
+    <h2>Claims</h2>
+    <div id="claims-list">Loading claims...</div>
+  </div>
+
+  <script>
+    const STAFF_PASSWORD = "jelani123"; // 🔑 CHANGE THIS TO SOMETHING SECURE!
+
+    async function checkPassword() {
+      const inputPassword = document.getElementById("password").value;
+      if (inputPassword === STAFF_PASSWORD) {
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        loadClaims();
+      } else {
+        document.getElementById("error-message").innerText = "Incorrect password!";
+      }
+    }
+
+    async function loadClaims() {
+      try {
+        // Note: This fetches all claims and doesn't require an auth token.
+        // This is okay for this simple internal tool, but for a production app,
+        // this endpoint should be protected.
+        const response = await fetch("https://jelani-backend.onrender.com/api/claims/");
+        const claims = await response.json();
+
+        const container = document.getElementById("claims-list");
+        if (claims.length === 0) {
+          container.innerHTML = "<p>No claims submitted yet.</p>";
+        } else {
+          container.innerHTML = claims.map(claim => `
+            <div style="border:1px solid #ccc; margin:10px; padding:10px; border-radius:5px; text-align: left;">
+              <strong>Policy Number:</strong> ${claim.policy_number || 'N/A'}<br>
+              <strong>Claim Type:</strong> ${claim.claim_type}<br>
+              <strong>Description:</strong> ${claim.description}<br>
+              ${claim.document ? `<a href="${claim.document}" target="_blank">View Document</a>` : ""}
+            </div>
+          `).join("");
+        }
+      } catch (error) {
+        document.getElementById("claims-list").innerHTML = "<p>Failed to load claims.</p>";
+      }
+    }
+  </script>
+</body>
+</html>

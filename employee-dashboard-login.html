@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Login - Jelani-Africa</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Overrides for a simple, centered login form */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: var(--bg-light);
+    }
+    main {
+      width: 100%;
+    }
+    .login-wrapper {
+      background: var(--bg-white);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      margin: 0 auto;
+    }
+    .login-wrapper h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    .login-wrapper p {
+      margin-bottom: 1.5rem;
+      color: #666;
+    }
+    .login-wrapper input {
+      width: 100%;
+      padding: 0.85rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+    }
+    .login-wrapper .btn {
+      width: 100%;
+    }
+    .error-message {
+      color: var(--primary-color);
+      font-weight: bold;
+      margin-top: 1rem;
+      display: none; /* Hidden by default */
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="login-wrapper">
+      <h2>Employee Dashboard</h2>
+      <p>Enter the staff password to continue.</p>
+      <input type="password" id="password" placeholder="Password" required>
+      <button class="btn" onclick="checkPassword()">Login</button>
+      <p id="error-message" class="error-message">Incorrect password!</p>
+    </div>
+  </main>
+
+  <script>
+    const STAFF_PASSWORD = "jelani2025"; // Temporary password
+
+    function checkPassword() {
+      const inputPassword = document.getElementById("password").value;
+      if (inputPassword === STAFF_PASSWORD) {
+        window.location.href = '/staff-dashboard.html';
+      } else {
+        document.getElementById("error-message").style.display = 'block';
+      }
+    }
+
+    // Allow login on pressing Enter
+    document.getElementById('password').addEventListener('keyup', function(event) {
+      if (event.key === 'Enter') {
+        checkPassword();
+      }
+    });
+  </script>
+</body>
+</html>
