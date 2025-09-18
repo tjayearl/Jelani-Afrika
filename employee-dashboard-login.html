@@ -47,6 +47,13 @@
     .login-wrapper .btn {
       width: 100%;
     }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
     .error-message {
       color: var(--primary-color);
       font-weight: bold;
@@ -62,17 +69,18 @@
       <p>Enter the staff password to continue.</p>
       <input type="password" id="password" placeholder="Password" required>
       <button class="btn" onclick="checkPassword()">Login</button>
+      <a href="index.html" class="back-link">⬅ Go Back to Home</a>
       <p id="error-message" class="error-message">Incorrect password!</p>
     </div>
   </main>
 
   <script>
-    const STAFF_PASSWORD = "jelani2025"; // Temporary password
+    const STAFF_PASSWORD = "Rachel254007"; // Temporary password
 
     function checkPassword() {
       const inputPassword = document.getElementById("password").value;
       if (inputPassword === STAFF_PASSWORD) {
-        window.location.href = '/staff-dashboard.html';
+        window.location.href = '/dashboard.html';
       } else {
         document.getElementById("error-message").style.display = 'block';
       }

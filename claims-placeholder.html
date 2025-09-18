@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agent Portal - Coming Soon</title>
+  <title>Claims Submission - Coming Soon</title>
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -48,13 +48,6 @@
       color: #333;
     }
 
-    .button-group {
-      margin-top: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
     .btn {
       display: inline-block;
       padding: 0.8rem 1.5rem;
@@ -64,29 +57,14 @@
       cursor: pointer;
       text-decoration: none;
       transition: all 0.2s ease;
-    }
-
-    .btn-primary {
       background-color: #800020; /* Burgundy */
       color: #f0f2f5; /* Silver text */
       border: none;
+      margin-top: 2rem;
     }
 
-    .btn-primary:hover {
+    .btn:hover {
       background-color: #a02020; /* Lighter burgundy */
-    }
-
-    .btn-outline {
-      background-color: transparent;
-      color: #800020; /* Burgundy */
-      border: 2px solid #800020;
-      opacity: 0.7;
-    }
-
-    .btn-outline:hover {
-      background-color: #800020;
-      color: #ffffff;
-      opacity: 1;
     }
 
     @media (max-width: 600px) {
@@ -101,15 +79,12 @@
 </head>
 <body>
   <div class="placeholder-card">
-    <h1>Agent Portal Coming Soon</h1>
-    <p>We’re developing a secure portal for our agents to manage clients, track commissions, and access resources.</p>
+    <h1>Claims Submission Coming Soon</h1>
+    <p>We’re building a faster way for clients to submit and track their claims online.</p>
     <div class="progress-indicator">
       Planning ✅ → Development 🟡 → Testing ⚪ → Launch ⚪
     </div>
-    <div class="button-group">
-      <a href="index.html" class="btn btn-primary">Go Back to Home</a>
-      <button class="btn btn-outline" onclick="window.location.href='employee-dashboard-login.html'">Unlock Dashboard</button>
-    </div>
+    <a href="index.html" class="btn">Go Back to Home</a>
   </div>
 </body>
 </html>

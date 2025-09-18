@@ -1,0 +1,209 @@
+<!-- DO NOT EDIT: This is the working quote calculator. Contact @tjayearl before changing -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Insurance Quote Calculator - Jelani-Africa</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: var(--bg-light); /* Silver background */
+      padding: 1.5rem;
+    }
+
+    .calculator-card {
+      background: var(--bg-white);
+      padding: 2rem 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      width: 100%;
+      max-width: 500px;
+      border-top: 5px solid var(--primary-color); /* Burgundy accent */
+    }
+
+    .calculator-card h1 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.85rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      font-size: 1.1rem; /* Larger for mobile */
+      box-sizing: border-box;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.1);
+    }
+
+    .quote-result {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--bg-light);
+      border-radius: var(--border-radius);
+      text-align: center;
+      transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+      opacity: 0; /* Hidden by default, shown by JS */
+      transform: translateY(10px);
+    }
+
+    .quote-result.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .quote-result p {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+    }
+
+    .quote-result .amount {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: var(--primary-color); /* Burgundy text */
+      margin-top: 0.5rem;
+    }
+
+    .quote-result .disclaimer {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--primary-color);
+      font-weight: bold;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover {
+        color: var(--primary-hover);
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator-card">
+    <h1>Instant Car Insurance Quote</h1>
+    <div class="form-group">
+      <label for="vehicle-value">Vehicle Value (KES)</label>
+      <input type="number" id="vehicle-value" placeholder="e.g., 2000000" oninput="calculateQuote()">
+    </div>
+    <div class="form-group">
+      <label for="coverage-type">Coverage Type</label>
+      <select id="coverage-type" onchange="calculateQuote()">
+        <option value="comprehensive">Comprehensive</option>
+        <option value="third-party">Third Party</option>
+      </select>
+    </div>
+    <div id="quote-result" class="quote-result">
+      <p>Your Estimated Annual Premium:</p>
+      <div id="quote-amount" class="amount">KES 0</div>
+      <p class="disclaimer">This is a preliminary estimate. An agent will provide a final quote.</p>
+    </div>
+    <a href="index.html" class="back-link">⬅ Back to Home</a>
+  </div>
+
+  <script>
+    function calculateQuote() {
+      const vehicleValueInput = document.getElementById('vehicle-value');
+      const vehicleValue = parseFloat(vehicleValueInput.value) || 0;
+      const coverageType = document.getElementById('coverage-type').value;
+      const quoteAmountEl = document.getElementById('quote-amount');
+      const quoteResultEl = document.getElementById('quote-result');
+
+      // --- Quote Formula ---
+      const COMPREHENSIVE_RATE = 0.03; // 3%
+      const THIRD_PARTY_RATE = 0.015; // 1.5%
+      const ADMIN_FEE = 5000;
+      const MIN_COMPREHENSIVE_PREMIUM = 15000;
+      // ---------------------
+
+      let quote = 0;
+      if (vehicleValue > 0) {
+        if (coverageType === 'comprehensive') {
+          quote = (vehicleValue * COMPREHENSIVE_RATE) + ADMIN_FEE;
+        } else { // Third Party
+          // Third-party is often a flat rate or has a simpler calculation
+          // For this example, let's make it a percentage but with a minimum.
+          quote = Math.max((vehicleValue * THIRD_PARTY_RATE) + ADMIN_FEE, MIN_COMPREHENSIVE_PREMIUM / 2);
+        }
+        // Ensure comprehensive has a minimum value
+        if (coverageType === 'comprehensive') {
+            quote = Math.max(quote, MIN_COMPREHENSIVE_PREMIUM);
+        }
+        quoteResultEl.classList.add('visible'); // Fade in the result
+      } else {
+        quoteResultEl.classList.remove('visible'); // Hide if no value
+      }
+
+      // Format to currency and display
+      quoteAmountEl.textContent = `KES ${Math.round(quote).toLocaleString()}`;
+    }
+
+    // Initial calculation on page load to show the '0' quote, but keep it hidden
+    document.addEventListener('DOMContentLoaded', () => {
+        // We don't need to call calculateQuote() here anymore, 
+        // as the initial state is correctly set in the HTML and CSS.
+    });
+  </script>
+</body>
+</html>
+```
+
+### 2. Update `car-insurance.html` to Link to the Calculator
+
+I'll update the "Get a Car Insurance Quote" button on the car insurance page to link directly to our new calculator.
+
+```diff
+--- a/home/admin2025/desktop/jelani/car-insurance.html
++++ b/home/admin2025/desktop/jelani/car-insurance.html
+@@ -74,7 +74,7 @@
+           <h2>Why Choose Our Car Insurance?</h2>
+           <p>We offer competitive rates, flexible payment options, and a hassle-free claims process. Our network of approved garages ensures quality repairs, and our dedicated team is always ready to assist you. Get the right protection for your vehicle today.</p>
+ 
+-          <a href="index.html?quote=car" class="btn">Get a Car Insurance Quote</a>
++          <a href="car-quote-calculator.html" class="btn">Get a Car Insurance Quote</a>
+         </div>
+       </div>
+     </section>
+
+```
+
+The new `car-quote-calculator.html` page is now ready and linked. It provides instant feedback to users, making the quoting process feel interactive and modern.
+
+<!--
+[PROMPT_SUGGESTION]Let's add the new Quote Calculator to the main navigation bar.[/PROMPT_SUGGESTION]
+[PROMPT_SUGGESTION]Can we add more fields to the calculator, like driver's age, to make the quote more accurate?[/PROMPT_SUGGESTION]
+-->
